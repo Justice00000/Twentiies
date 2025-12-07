@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Scissors, Users, Star, Shirt } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import heroImage from "@/assets/hero-main.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
@@ -16,19 +17,13 @@ const Index = () => {
   ];
 
   const featuredImages = [gallery1, gallery2, gallery3];
+  const heroImages = [heroImage, gallery1, gallery2, gallery3];
 
   return (
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center">
-        <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="Twentiies Tailored - Modern African Menswear"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 to-transparent" />
-        </div>
+        <HeroSlideshow images={heroImages} interval={5000} />
 
         <div className="container relative z-10 py-20">
           <div className="max-w-2xl text-primary-foreground animate-fade-up">
