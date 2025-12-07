@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <img src={logo} alt="Twentiies" className="h-16 w-auto" />
+            <img src={logo} alt="Twentiies" className="h-24 w-auto" />
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
               Crafted for the modern man. We design for those who value tradition but live in the now.
             </p>
