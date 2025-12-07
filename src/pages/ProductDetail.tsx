@@ -72,7 +72,7 @@ const ProductDetail = () => {
     const message = `Hello! I would like to order:\n\nProduct: ${product.name}\nCategory: ${product.category}\nPrice: ${formatPrice(product.price)}${selectedSize ? `\nSize: ${selectedSize}` : ""}\n\nPlease confirm availability and provide payment details.`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/2348000000000?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/250792417246?text=${encodedMessage}`;
     
     window.open(whatsappUrl, "_blank");
   };
