@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Phone, MapPin, Mail } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -8,9 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="font-heading text-2xl font-semibold tracking-wider">
-              TWENTIIES
-            </h3>
+            <img src={logo} alt="Twentiies" className="h-16 w-auto" />
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
               Crafted for the modern man. We design for those who value tradition but live in the now.
             </p>
