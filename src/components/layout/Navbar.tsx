@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -23,9 +24,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="font-heading text-2xl font-semibold tracking-wider">
-              TWENTIIES
-            </span>
+            <img src={logo} alt="Twentiies" className="h-12 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
