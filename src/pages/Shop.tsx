@@ -100,56 +100,57 @@ const Shop = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProducts.map((product, index) => (
-                <Card
-                  key={product.id}
-                  className="group overflow-hidden border-0 shadow-none bg-transparent animate-fade-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="aspect-[3/4] overflow-hidden bg-muted relative">
-                    {product.image_url ? (
-                      <img
-                        src={product.image_url}
-                        alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                        No image
-                      </div>
-                    )}
-                    {!product.in_stock && (
-                      <div className="absolute inset-0 bg-charcoal/60 flex items-center justify-center">
-                        <Badge variant="destructive" className="text-sm">
-                          Out of Stock
-                        </Badge>
-                      </div>
-                    )}
-                  </div>
-                  <CardContent className="px-0 pt-4">
-                    <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                      {product.category}
-                    </span>
-                    <h3 className="font-heading font-semibold text-lg mt-1">
-                      {product.name}
-                    </h3>
-                    <p className="text-gold font-medium mt-1">
-                      {formatPrice(product.price)}
-                    </p>
-                    {product.product_sizes.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {product.product_sizes.map((size) => (
-                          <Badge
-                            key={size.size}
-                            variant={size.in_stock ? "secondary" : "outline"}
-                            className="text-xs"
-                          >
-                            {size.size}
+                <Link key={product.id} to={`/shop/${product.id}`}>
+                  <Card
+                    className="group overflow-hidden border-0 shadow-none bg-transparent animate-fade-up cursor-pointer"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <div className="aspect-[3/4] overflow-hidden bg-muted relative">
+                      {product.image_url ? (
+                        <img
+                          src={product.image_url}
+                          alt={product.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          No image
+                        </div>
+                      )}
+                      {!product.in_stock && (
+                        <div className="absolute inset-0 bg-charcoal/60 flex items-center justify-center">
+                          <Badge variant="destructive" className="text-sm">
+                            Out of Stock
                           </Badge>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="px-0 pt-4">
+                      <span className="text-xs text-muted-foreground uppercase tracking-wider">
+                        {product.category}
+                      </span>
+                      <h3 className="font-heading font-semibold text-lg mt-1">
+                        {product.name}
+                      </h3>
+                      <p className="text-gold font-medium mt-1">
+                        {formatPrice(product.price)}
+                      </p>
+                      {product.product_sizes.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {product.product_sizes.map((size) => (
+                            <Badge
+                              key={size.size}
+                              variant={size.in_stock ? "secondary" : "outline"}
+                              className="text-xs"
+                            >
+                              {size.size}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           )}
