@@ -8,7 +8,13 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    allowedHosts: ["twentiies.onrender.com"], // <-- add this line
+    allowedHosts: ["twentiies.onrender.com"],
+  },
+  preview: {
+    port: 8080,
+    strictPort: true,
+    // fallback to index.html for client-side routing
+    historyApiFallback: true
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
