@@ -15,14 +15,6 @@ const Order = () => {
     email: "",
     orderType: "",
     description: "",
-    // Measurements
-    chest: "",
-    waist: "",
-    hips: "",
-    shoulder: "",
-    sleeveLength: "",
-    trouserLength: "",
-    neck: "",
   });
 
   const orderTypes = [
@@ -53,15 +45,6 @@ Email: ${formData.email}
 *Order Details*
 Type: ${formData.orderType}
 Description: ${formData.description}
-
-*Measurements (in inches)*
-Chest: ${formData.chest}
-Waist: ${formData.waist}
-Hips: ${formData.hips}
-Shoulder: ${formData.shoulder}
-Sleeve Length: ${formData.sleeveLength}
-Trouser Length: ${formData.trouserLength}
-Neck: ${formData.neck}
 
 ━━━━━━━━━━━━━━━━
 Sent from Twentiies Website
@@ -101,10 +84,10 @@ Sent from Twentiies Website
               Place Your Order
             </span>
             <h1 className="text-4xl md:text-6xl font-heading font-semibold mt-4 mb-6">
-              Order & Measurement Form
+              Custom Order Form
             </h1>
             <p className="text-xl text-primary-foreground/80 leading-relaxed">
-              Fill in your details and measurements below. Your order will be sent directly to our WhatsApp for quick processing.
+              Fill in your details below. Your order will be sent directly to our WhatsApp for quick processing.
             </p>
           </div>
         </div>
@@ -194,93 +177,8 @@ Sent from Twentiies Website
               </div>
             </div>
 
-            {/* Measurements */}
-            <div className="animate-fade-up stagger-3">
-              <h2 className="text-2xl font-heading font-semibold mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-gold text-accent-foreground flex items-center justify-center text-sm font-bold">3</span>
-                Measurements (in inches)
-              </h2>
-              <div className="p-6 rounded-lg bg-card border border-border">
-                <p className="text-muted-foreground text-sm mb-6">
-                  Provide your measurements in inches. If unsure, leave blank and we'll guide you via WhatsApp.
-                </p>
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="chest">Chest</Label>
-                    <Input
-                      id="chest"
-                      name="chest"
-                      value={formData.chest}
-                      onChange={handleChange}
-                      placeholder="e.g., 42"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="waist">Waist</Label>
-                    <Input
-                      id="waist"
-                      name="waist"
-                      value={formData.waist}
-                      onChange={handleChange}
-                      placeholder="e.g., 34"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="hips">Hips</Label>
-                    <Input
-                      id="hips"
-                      name="hips"
-                      value={formData.hips}
-                      onChange={handleChange}
-                      placeholder="e.g., 40"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="shoulder">Shoulder Width</Label>
-                    <Input
-                      id="shoulder"
-                      name="shoulder"
-                      value={formData.shoulder}
-                      onChange={handleChange}
-                      placeholder="e.g., 18"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="sleeveLength">Sleeve Length</Label>
-                    <Input
-                      id="sleeveLength"
-                      name="sleeveLength"
-                      value={formData.sleeveLength}
-                      onChange={handleChange}
-                      placeholder="e.g., 25"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="trouserLength">Trouser Length</Label>
-                    <Input
-                      id="trouserLength"
-                      name="trouserLength"
-                      value={formData.trouserLength}
-                      onChange={handleChange}
-                      placeholder="e.g., 42"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="neck">Neck</Label>
-                    <Input
-                      id="neck"
-                      name="neck"
-                      value={formData.neck}
-                      onChange={handleChange}
-                      placeholder="e.g., 16"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* Submit */}
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-up stagger-4">
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-up stagger-3">
               <Button type="submit" variant="whatsapp" size="xl" className="flex-1 group">
                 <MessageCircle className="w-5 h-5" />
                 Send Order via WhatsApp
@@ -289,7 +187,7 @@ Sent from Twentiies Website
             </div>
 
             {/* Info Box */}
-            <div className="p-6 rounded-lg bg-cream border border-gold/20 animate-fade-up stagger-5">
+            <div className="p-6 rounded-lg bg-cream border border-gold/20 animate-fade-up stagger-4">
               <h3 className="font-heading font-semibold mb-3 text-charcoal">What happens next?</h3>
               <ul className="space-y-2 text-sm text-charcoal/70">
                 <li className="flex items-start gap-2">
