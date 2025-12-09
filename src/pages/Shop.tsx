@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Layout from "@/components/layout/Layout";
 import { supabase } from "@/integrations/supabase/client";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface Product {
   id: string;
@@ -23,6 +25,8 @@ const Shop = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { addItem, items } = useCart();
+  const { toast } = useToast();
 
   useEffect(() => {
     fetchProducts();
@@ -52,6 +56,30 @@ const Shop = () => {
     return `₦${price.toLocaleString()}`;
   };
 
+  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!product.in_stock) return;
+
+    addItem({
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      image_url: product.image_url,
+    });
+
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
+
+  const isInCart = (productId: string) => {
+    return items.some((item) => item.id === productId);
+  };
+
   return (
     <Layout>
       {/* Hero */}
@@ -72,7 +100,7 @@ const Shop = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 border-b border-border bg-background sticky top-16 z-40">
+      <section className="py-8 border-b border-border bg-background sticky top-20 z-40">
         <div className="container">
           <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
@@ -122,6 +150,29 @@ const Shop = () => {
                           <Badge variant="destructive" className="text-sm">
                             Out of Stock
                           </Badge>
+                        </div>
+                      )}
+                      {/* Add to Cart Button Overlay */}
+                      {product.in_stock && (
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-charcoal/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <Button
+                            variant={isInCart(product.id) ? "secondary" : "hero"}
+                            size="sm"
+                            className="w-full"
+                            onClick={(e) => handleAddToCart(e, product)}
+                          >
+                            {isInCart(product.id) ? (
+                              <>
+                                <Check className="w-4 h-4 mr-1" />
+                                In Cart
+                              </>
+                            ) : (
+                              <>
+                                <ShoppingCart className="w-4 h-4 mr-1" />
+                                Add to Cart
+                              </>
+                            )}
+                          </Button>
                         </div>
                       )}
                     </div>
