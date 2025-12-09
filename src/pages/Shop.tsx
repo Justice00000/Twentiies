@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,7 @@ const Shop = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
@@ -52,6 +53,13 @@ const Shop = () => {
     return `₦${price.toLocaleString()}`;
   };
 
+  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Navigate to product detail page to select size
+    navigate(`/shop/${product.id}`);
+  };
+
   return (
     <Layout>
       {/* Hero */}
@@ -72,7 +80,7 @@ const Shop = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 border-b border-border bg-background sticky top-16 z-40">
+      <section className="py-8 border-b border-border bg-background sticky top-20 z-40">
         <div className="container">
           <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
@@ -122,6 +130,20 @@ const Shop = () => {
                           <Badge variant="destructive" className="text-sm">
                             Out of Stock
                           </Badge>
+                        </div>
+                      )}
+                      {/* Add to Cart Button Overlay */}
+                      {product.in_stock && (
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-charcoal/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <Button
+                            variant="hero"
+                            size="sm"
+                            className="w-full"
+                            onClick={(e) => handleAddToCart(e, product)}
+                          >
+                            <ShoppingCart className="w-4 h-4 mr-1" />
+                            Select & Add to Cart
+                          </Button>
                         </div>
                       )}
                     </div>

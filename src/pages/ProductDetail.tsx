@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { ArrowLeft, MessageCircle, ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Layout from "@/components/layout/Layout";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductSize {
   size: string;
@@ -28,6 +29,7 @@ const ProductDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const { toast } = useToast();
+  const { addItem, items } = useCart();
 
   useEffect(() => {
     if (id) {
@@ -75,6 +77,38 @@ const ProductDetail = () => {
     const whatsappUrl = `https://wa.me/250792417246?text=${encodedMessage}`;
     
     window.open(whatsappUrl, "_blank");
+  };
+
+  const handleAddToCart = () => {
+    if (!product) return;
+
+    if (product.product_sizes.length > 0 && !selectedSize) {
+      toast({
+        title: "Please select a size",
+        description: "Choose a size before adding to cart.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    addItem({
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      image_url: product.image_url,
+      size: selectedSize || undefined,
+    });
+
+    toast({
+      title: "Added to cart",
+      description: `${product.name}${selectedSize ? ` (${selectedSize})` : ""} has been added to your cart.`,
+    });
+  };
+
+  const isInCart = () => {
+    if (!product) return false;
+    return items.some((item) => item.id === product.id && item.size === (selectedSize || undefined));
   };
 
   if (isLoading) {
@@ -205,11 +239,30 @@ const ProductDetail = () => {
                 )}
               </div>
 
-              {/* Order Button */}
-              <div className="mt-8">
+              {/* Order Buttons */}
+              <div className="mt-8 space-y-3">
                 <Button
-                  variant="hero"
+                  variant={isInCart() ? "secondary" : "hero"}
                   size="xl"
+                  className="w-full group"
+                  onClick={handleAddToCart}
+                  disabled={!product.in_stock}
+                >
+                  {isInCart() ? (
+                    <>
+                      <Check className="mr-2 h-5 w-5" />
+                      Added to Cart
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="mr-2 h-5 w-5" />
+                      Add to Cart
+                    </>
+                  )}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
                   className="w-full group"
                   onClick={handlePlaceOrder}
                   disabled={!product.in_stock}
@@ -218,7 +271,7 @@ const ProductDetail = () => {
                   Order via WhatsApp
                 </Button>
                 <p className="text-xs text-muted-foreground text-center mt-3">
-                  Click to open WhatsApp with your order details
+                  Add to cart for multiple items, or order directly via WhatsApp
                 </p>
               </div>
 
