@@ -34,12 +34,12 @@ const SlidingGallery = ({
         {duplicatedImages.map((image, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-64 md:w-80 h-80 md:h-96 rounded-lg overflow-hidden group"
+            className="flex-shrink-0 w-48 md:w-64 h-48 md:h-64 rounded-lg overflow-hidden group bg-cream/10"
           >
             <img
               src={image}
               alt={`Sliding gallery ${index + 1}`}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
             />
           </div>
         ))}
