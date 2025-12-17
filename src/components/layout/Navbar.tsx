@@ -57,8 +57,8 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
-            <Link to="/order">
-              <Button variant="hero" size="lg">
+            <Link to="/shop">
+              <Button variant="gold" size="lg" className="group hover:text-black transition-colors">
                 Order Now
               </Button>
             </Link>
@@ -103,8 +103,8 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link to="/order" onClick={() => setIsOpen(false)}>
-                <Button variant="hero" className="w-full mt-4">
+              <Link to="/shop" onClick={() => setIsOpen(false)}>
+                <Button variant="gold" className="w-full mt-4">
                   Order Now
                 </Button>
               </Link>

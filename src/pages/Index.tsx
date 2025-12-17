@@ -37,7 +37,7 @@ const Index = () => {
               Every cut tells your story. We design for the bold.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/order">
+              <Link to="/shop">
                 <Button variant="gold" size="xl" className="group">
                   Order Now
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -157,7 +157,7 @@ const Index = () => {
               Ready to Define Your Style?
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/order">
+              <Link to="/shop">
                 <Button variant="gold" size="xl" className="group">
                   Place Your Order
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" />

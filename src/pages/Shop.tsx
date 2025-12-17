@@ -189,10 +189,10 @@ const Shop = () => {
       <section className="py-16 bg-cream">
         <div className="container text-center">
           <h2 className="text-2xl md:text-3xl font-heading font-semibold mb-4">
-            Ready to Order?
+            Have something else in mind?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-            Place your custom order with your measurements.
+            Place your custom order with us now.
           </p>
           <Link to="/order">
             <Button variant="hero" size="lg" className="group">

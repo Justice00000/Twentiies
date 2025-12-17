@@ -125,7 +125,7 @@ const Services = () => {
               Ready to Get Started?
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/order">
+              <Link to="/shop">
                 <Button variant="gold" size="lg" className="group">
                   Place Order
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" />
