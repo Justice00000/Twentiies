@@ -40,30 +40,6 @@ const Index = () => {
         <HeroSlideshow images={heroImages} interval={5000} />
 
         <div className="container relative z-10 py-20">
-<<<<<<< HEAD
-          <div className="max-w-2xl text-primary-foreground animate-fade-up">
-            <p className="text-gold font-medium tracking-widest uppercase text-sm mb-4">
-              Crafted for the Modern Man
-            </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-semibold leading-tight mb-6">
-              African Elegance. Modern Style.
-            </h1>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-lg">
-              Every cut tells your story. We design for the bold.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/shop">
-                <Button variant="gold" size="xl" className="group">
-                  Order Now
-                  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to="/services">
-                <Button variant="hero-outline" size="xl" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-charcoal">
-                  Our Services
-                </Button>
-              </Link>
-=======
           <div className="max-w-2xl text-primary-foreground">
             <ScrollReveal animation="fade-right" duration={1000}>
               <p className="text-gold font-medium tracking-widest uppercase text-sm mb-4">
@@ -144,7 +120,6 @@ const Index = () => {
                   <img src={gallery2} alt="Kaftan" className="rounded-lg shadow-xl" />
                 </HoverCard3D>
               </ScrollReveal>
->>>>>>> bespoke/main
             </div>
           </div>
         </div>
@@ -263,26 +238,6 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-<<<<<<< HEAD
-      <section className="py-24 bg-brown text-primary-foreground">
-        <div className="container text-center">
-          <div className="max-w-3xl mx-auto animate-fade-up">
-            <h2 className="text-3xl md:text-5xl font-heading font-semibold mb-6">
-              Ready to Define Your Style?
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/shop">
-                <Button variant="gold" size="xl" className="group">
-                  Place Your Order
-                  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <a href="https://wa.me/250792417246" target="_blank" rel="noopener noreferrer">
-                <Button variant="whatsapp" size="xl">
-                  Chat on WhatsApp
-                </Button>
-              </a>
-=======
       <section className="py-24 bg-brown text-primary-foreground relative overflow-hidden">
         {/* Background decorative images */}
         <div className="absolute inset-0 opacity-10">
@@ -308,7 +263,6 @@ const Index = () => {
                   </Button>
                 </a>
               </div>
->>>>>>> bespoke/main
             </div>
           </ScrollReveal>
         </div>
