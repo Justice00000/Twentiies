@@ -20,8 +20,8 @@ const HeroSlideshow = ({ images, interval = 5000 }: HeroSlideshowProps) => {
 
   return (
     <div className="absolute inset-0 flex">
-      {/* Left side - gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/95 to-charcoal/70" />
+      {/* Background that merges with charcoal */}
+      <div className="absolute inset-0 bg-charcoal" />
       
       {/* Right side - images */}
       <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/2 lg:w-[55%] flex items-center justify-center md:justify-end">
