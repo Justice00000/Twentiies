@@ -7,7 +7,6 @@ import FlowerBloom from "@/components/animations/FlowerBloom";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SlidingGallery from "@/components/animations/SlidingGallery";
 import MasonryGallery from "@/components/animations/MasonryGallery";
-import ParallaxGallery from "@/components/animations/ParallaxGallery";
 import HoverCard3D from "@/components/animations/HoverCard3D";
 
 // Model images (with transparent backgrounds)
@@ -36,13 +35,12 @@ const Index = () => {
   const slidingImages1 = [pants1, pants2, pants3, pants4, pants5, pants6];
   const slidingImages2 = [pants6, pants5, pants4, pants3, pants2, pants1];
   const flowerImages = [model1, pants1, model2, pants2, model3, pants3, model4];
-  const allImages = [model1, pants1, model2, pants2, model3, pants3, model4, pants4, pants5, pants6];
   const masonryImages = [pants1, model1, pants2, model2, pants3, model3, pants4, pants5];
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative min-h-[100svh] flex items-center">
+      <section className="relative min-h-[100svh] flex items-center bg-charcoal">
         <HeroSlideshow images={heroImages} interval={5000} />
 
         <div className="container relative z-10 py-16 md:py-20">
@@ -83,7 +81,7 @@ const Index = () => {
 
       {/* Sliding Gallery - Left */}
       <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery images={slidingImages1} direction="left" speed={40} />
+        <SlidingGallery images={slidingImages1} direction="left" speed={60} />
       </section>
 
       {/* Intro Section with 3D Cards */}
@@ -106,7 +104,7 @@ const Index = () => {
                   African elegance meets modern structure. Outfits that fit your work, weddings, and everyday life.
                 </p>
               </ScrollReveal>
-              <ScrollReveal animation="bounce-in" delay={300}>
+              <ScrollReveal animation="fade-up" delay={300}>
                 <Link to="/about">
                   <Button variant="outline" size="lg" className="mt-2 md:mt-4 group">
                     About Us
@@ -116,16 +114,16 @@ const Index = () => {
               </ScrollReveal>
             </div>
             <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <ScrollReveal animation="fade-left" delay={100}>
+              <Link to="/shop">
                 <HoverCard3D>
                   <img src={model1} alt="Agbada" className="rounded-lg shadow-xl bg-cream/50" />
                 </HoverCard3D>
-              </ScrollReveal>
-              <ScrollReveal animation="fade-left" delay={300}>
-                <HoverCard3D className="mt-8 md:mt-12">
+              </Link>
+              <Link to="/shop" className="mt-8 md:mt-12">
+                <HoverCard3D>
                   <img src={model2} alt="Kaftan" className="rounded-lg shadow-xl bg-cream/50" />
                 </HoverCard3D>
-              </ScrollReveal>
+              </Link>
             </div>
           </div>
         </div>
@@ -152,7 +150,7 @@ const Index = () => {
 
       {/* Sliding Gallery - Right */}
       <section className="py-6 md:py-8 bg-brown overflow-hidden">
-        <SlidingGallery images={slidingImages2} direction="right" speed={35} />
+        <SlidingGallery images={slidingImages2} direction="right" speed={50} />
       </section>
 
       {/* Services Preview */}
@@ -171,8 +169,8 @@ const Index = () => {
             {services.map((service, index) => (
               <ScrollReveal
                 key={service.title}
-                animation={index % 2 === 0 ? "fade-up" : "zoom-in"}
-                delay={index * 150}
+                animation="fade-up"
+                delay={index * 100}
               >
                 <HoverCard3D>
                   <div className="p-4 md:p-6 border border-primary-foreground/10 rounded-lg hover:border-gold/50 transition-all duration-300 group bg-charcoal-light/20 backdrop-blur-sm">
@@ -186,7 +184,7 @@ const Index = () => {
             ))}
           </div>
 
-          <ScrollReveal animation="bounce-in" delay={600} className="text-center mt-8 md:mt-12">
+          <ScrollReveal animation="fade-up" delay={400} className="text-center mt-8 md:mt-12">
             <Link to="/services">
               <Button variant="gold" size="lg" className="group">
                 View All Services
@@ -197,23 +195,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Parallax Gallery */}
-      <section className="py-16 md:py-24 bg-background">
-        <div className="container px-4">
-          <ScrollReveal animation="fade-up" className="text-center mb-10 md:mb-16">
-            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
-              Gallery
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-semibold mt-3 md:mt-4">
-              Floating Elegance
-            </h2>
-          </ScrollReveal>
-          
-          <ParallaxGallery images={allImages} />
-        </div>
-      </section>
-
-      {/* Masonry Gallery */}
+      {/* Masonry Gallery - Featured */}
       <section className="py-16 md:py-24 bg-cream">
         <div className="container px-4">
           <ScrollReveal animation="fade-up" className="text-center mb-10 md:mb-16">
@@ -225,9 +207,11 @@ const Index = () => {
             </h2>
           </ScrollReveal>
 
-          <MasonryGallery images={masonryImages} />
+          <Link to="/shop">
+            <MasonryGallery images={masonryImages} />
+          </Link>
           
-          <ScrollReveal animation="fade-up" delay={400} className="text-center mt-8 md:mt-12">
+          <ScrollReveal animation="fade-up" delay={200} className="text-center mt-8 md:mt-12">
             <Link to="/shop">
               <Button variant="outline" size="lg" className="group border-charcoal text-charcoal hover:bg-charcoal hover:text-cream">
                 View All Products
@@ -240,7 +224,7 @@ const Index = () => {
 
       {/* Another Sliding Gallery */}
       <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery images={[...slidingImages1].reverse()} direction="left" speed={45} />
+        <SlidingGallery images={[...slidingImages1].reverse()} direction="left" speed={55} />
       </section>
 
       {/* CTA Section */}
@@ -251,7 +235,7 @@ const Index = () => {
         </div>
         
         <div className="container text-center relative z-10 px-4">
-          <ScrollReveal animation="zoom-in">
+          <ScrollReveal animation="fade-up">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-semibold mb-4 md:mb-6">
                 Ready to Define Your Style?
