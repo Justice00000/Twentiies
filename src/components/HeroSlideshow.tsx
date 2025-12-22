@@ -19,22 +19,27 @@ const HeroSlideshow = ({ images, interval = 5000 }: HeroSlideshowProps) => {
   }, [images.length, interval]);
 
   return (
-    <div className="absolute inset-0">
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            index === currentIndex ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <img
-            src={image}
-            alt={`Twentiies Tailored - Slide ${index + 1}`}
-            className="w-full h-full object-contain object-top"
-          />
-        </div>
-      ))}
-      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 to-transparent" />
+    <div className="absolute inset-0 flex">
+      {/* Left side - gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/95 to-charcoal/70" />
+      
+      {/* Right side - images */}
+      <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/2 lg:w-[55%] flex items-center justify-center md:justify-end">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 flex items-center justify-center md:justify-end transition-opacity duration-1000 ease-in-out ${
+              index === currentIndex ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={image}
+              alt={`Twentiies Tailored - Slide ${index + 1}`}
+              className="h-[70%] md:h-[85%] w-auto object-contain pr-4 md:pr-8 lg:pr-16"
+            />
+          </div>
+        ))}
+      </div>
       
       {/* Slide indicators */}
       {images.length > 1 && (
