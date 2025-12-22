@@ -30,7 +30,7 @@ const HeroSlideshow = ({ images, interval = 5000 }: HeroSlideshowProps) => {
           <img
             src={image}
             alt={`Twentiies Tailored - Slide ${index + 1}`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain object-top"
           />
         </div>
       ))}
