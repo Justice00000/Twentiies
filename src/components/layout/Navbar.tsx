@@ -2,23 +2,26 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
-
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Services", path: "/services" },
-  { name: "Shop", path: "/shop" },
-  { name: "Testimonials", path: "/testimonials" },
-  { name: "Contact", path: "/contact" },
-];
+import LanguageToggle from "./LanguageToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { totalItems } = useCart();
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { name: t("home"), path: "/" },
+    { name: t("about"), path: "/about" },
+    { name: t("services"), path: "/services" },
+    { name: t("shop"), path: "/shop" },
+    { name: t("testimonials"), path: "/testimonials" },
+    { name: t("contact"), path: "/contact" },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-charcoal backdrop-blur-sm border-b border-charcoal-light">
@@ -47,8 +50,9 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Cart & Order - Desktop */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Cart, Language & Order - Desktop */}
+          <div className="hidden lg:flex items-center gap-3">
+            <LanguageToggle />
             <Link to="/cart" className="relative p-2 text-primary-foreground hover:text-gold transition-colors">
               <ShoppingCart className="w-6 h-6" />
               {totalItems > 0 && (
@@ -59,13 +63,14 @@ const Navbar = () => {
             </Link>
             <Link to="/order">
               <Button variant="hero" size="lg">
-                Order Now
+                {t("orderNow")}
               </Button>
             </Link>
           </div>
 
-          {/* Mobile Cart & Menu */}
-          <div className="lg:hidden flex items-center gap-2">
+          {/* Mobile Cart, Language & Menu */}
+          <div className="lg:hidden flex items-center gap-1">
+            <LanguageToggle />
             <Link to="/cart" className="relative p-2 text-primary-foreground hover:text-gold transition-colors">
               <ShoppingCart className="w-6 h-6" />
               {totalItems > 0 && (
@@ -105,7 +110,7 @@ const Navbar = () => {
               ))}
               <Link to="/order" onClick={() => setIsOpen(false)}>
                 <Button variant="hero" className="w-full mt-4">
-                  Order Now
+                  {t("orderNow")}
                 </Button>
               </Link>
             </div>
