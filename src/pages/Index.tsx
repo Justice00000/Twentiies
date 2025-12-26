@@ -8,6 +8,7 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 import SlidingGallery from "@/components/animations/SlidingGallery";
 import MasonryGallery from "@/components/animations/MasonryGallery";
 import HoverCard3D from "@/components/animations/HoverCard3D";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Model images (with transparent backgrounds)
 import model1 from "@/assets/model-1.png";
@@ -24,8 +25,10 @@ import pants5 from "@/assets/pants-5.jpg";
 import pants6 from "@/assets/pants-6.jpg";
 
 const Index = () => {
+  const { t } = useLanguage();
+
   const services = [
-    { icon: Scissors, title: "Bespoke Tailoring" },
+    { icon: Scissors, title: t("customTailoring") },
     { icon: Shirt, title: "Ready-Made" },
     { icon: Users, title: "Grooms-wear" },
     { icon: Star, title: "Corporate Orders" },
@@ -47,7 +50,7 @@ const Index = () => {
           <div className="max-w-2xl text-primary-foreground px-2">
             <ScrollReveal animation="fade-right" duration={1000}>
               <p className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm mb-3 md:mb-4">
-                Crafted for the Modern Man
+                {t("heroTitle")}
               </p>
             </ScrollReveal>
             <ScrollReveal animation="fade-up" delay={200} duration={1000}>
@@ -57,20 +60,20 @@ const Index = () => {
             </ScrollReveal>
             <ScrollReveal animation="fade-up" delay={400} duration={1000}>
               <p className="text-base md:text-lg text-primary-foreground/80 mb-6 md:mb-8 max-w-lg">
-                Every cut tells your story. We design for the bold.
+                {t("heroSubtitle")}
               </p>
             </ScrollReveal>
             <ScrollReveal animation="zoom-in" delay={600} duration={800}>
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                 <Link to="/order">
                   <Button variant="gold" size="lg" className="group w-full sm:w-auto">
-                    Order Now
+                    {t("orderNow")}
                     <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Link to="/services">
                   <Button variant="hero-outline" size="lg" className="w-full sm:w-auto text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-charcoal">
-                    Our Services
+                    {t("services")}
                   </Button>
                 </Link>
               </div>
@@ -91,7 +94,7 @@ const Index = () => {
             <div className="space-y-4 md:space-y-6">
               <ScrollReveal animation="fade-right">
                 <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
-                  Our Philosophy
+                  {t("aboutTitle")}
                 </span>
               </ScrollReveal>
               <ScrollReveal animation="fade-up" delay={100}>
@@ -101,13 +104,13 @@ const Index = () => {
               </ScrollReveal>
               <ScrollReveal animation="fade-up" delay={200}>
                 <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-                  African elegance meets modern structure. Outfits that fit your work, weddings, and everyday life.
+                  {t("aboutDescription")}
                 </p>
               </ScrollReveal>
               <ScrollReveal animation="fade-up" delay={300}>
                 <Link to="/about">
                   <Button variant="outline" size="lg" className="mt-2 md:mt-4 group">
-                    About Us
+                    {t("learnMore")}
                     <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
@@ -134,13 +137,13 @@ const Index = () => {
         <div className="container px-4">
           <ScrollReveal animation="fade-up" className="text-center mb-6 md:mb-8">
             <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
-              Our Showroom
+              {t("featuredTitle")}
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-semibold mt-3 md:mt-4 text-charcoal">
-              Discover Our Collection
+              {t("exploreCollection")}
             </h2>
             <p className="text-muted-foreground mt-3 md:mt-4 max-w-xl mx-auto text-sm md:text-base">
-              Scroll to see our pieces bloom before your eyes
+              {t("featuredSubtitle")}
             </p>
           </ScrollReveal>
           
@@ -158,10 +161,10 @@ const Index = () => {
         <div className="container px-4">
           <ScrollReveal animation="fade-up" className="text-center mb-10 md:mb-16">
             <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
-              What We Offer
+              {t("servicesTitle")}
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-semibold mt-3 md:mt-4">
-              Our Services
+              {t("services")}
             </h2>
           </ScrollReveal>
 
@@ -187,7 +190,7 @@ const Index = () => {
           <ScrollReveal animation="fade-up" delay={400} className="text-center mt-8 md:mt-12">
             <Link to="/services">
               <Button variant="gold" size="lg" className="group">
-                View All Services
+                {t("viewAll")} {t("services")}
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -200,7 +203,7 @@ const Index = () => {
         <div className="container px-4">
           <ScrollReveal animation="fade-up" className="text-center mb-10 md:mb-16">
             <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
-              Featured
+              {t("featuredTitle")}
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-semibold mt-3 md:mt-4 text-charcoal">
               Style That Speaks
@@ -214,7 +217,7 @@ const Index = () => {
           <ScrollReveal animation="fade-up" delay={200} className="text-center mt-8 md:mt-12">
             <Link to="/shop">
               <Button variant="outline" size="lg" className="group border-charcoal text-charcoal hover:bg-charcoal hover:text-cream">
-                View All Products
+                {t("viewAll")}
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -243,7 +246,7 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
                 <Link to="/order">
                   <Button variant="gold" size="lg" className="group w-full sm:w-auto">
-                    Place Your Order
+                    {t("orderNow")}
                     <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
