@@ -10,7 +10,7 @@ import MasonryGallery from "@/components/animations/MasonryGallery";
 import HoverCard3D from "@/components/animations/HoverCard3D";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Model images (with transparent backgrounds)
+// Model images (for gallery sections)
 import model1 from "@/assets/model-1.png";
 import model2 from "@/assets/model-2.png";
 import model3 from "@/assets/model-3.png";
@@ -44,7 +44,7 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-[100svh] flex items-center bg-charcoal">
-        <HeroSlideshow images={heroImages} interval={5000} />
+        <HeroSlideshow />
 
         <div className="container relative z-10 py-16 md:py-20">
           <div className="max-w-2xl text-primary-foreground px-2">
