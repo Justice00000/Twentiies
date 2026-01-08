@@ -43,41 +43,34 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative min-h-[100svh] flex items-center bg-charcoal">
-        <HeroSlideshow images={heroImages} interval={5000} />
-
-        <div className="container relative z-10 py-16 md:py-20">
-          <div className="max-w-2xl text-primary-foreground px-2">
-            <ScrollReveal animation="fade-right" duration={1000}>
-              <p className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm mb-3 md:mb-4">
-                {t("heroTitle")}
-              </p>
-            </ScrollReveal>
-            <ScrollReveal animation="fade-up" delay={200} duration={1000}>
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-heading font-semibold leading-tight mb-4 md:mb-6">
-                African Elegance. Modern Style.
-              </h1>
-            </ScrollReveal>
-            <ScrollReveal animation="fade-up" delay={400} duration={1000}>
-              <p className="text-base md:text-lg text-primary-foreground/80 mb-6 md:mb-8 max-w-lg">
-                {t("heroSubtitle")}
-              </p>
-            </ScrollReveal>
-            <ScrollReveal animation="zoom-in" delay={600} duration={800}>
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                <Link to="/order">
-                  <Button variant="gold" size="lg" className="group w-full sm:w-auto">
-                    {t("orderNow")}
-                    <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Link to="/services">
-                  <Button variant="hero-outline" size="lg" className="w-full sm:w-auto text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-charcoal">
-                    {t("services")}
-                  </Button>
-                </Link>
-              </div>
-            </ScrollReveal>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+        <HeroSlideshow images={heroImages} />
+        
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 text-left sm:text-center text-white pt-20 sm:pt-0">
+          <p className="text-gold text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-3 sm:mb-4 animate-fade-in">
+            {t("heroTitle")}
+          </p>
+          
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl mb-4 sm:mb-6 leading-tight animate-fade-in-up">
+            African Elegance. <br />
+            Modern Style.
+          </h1>
+          
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl sm:mx-auto text-gray-300 animate-fade-in-up animation-delay-200">
+            Every cut tells your story. We design for the bold.
+          </p>
+          
+          <div className="flex flex-col gap-3 sm:gap-4 animate-fade-in-up animation-delay-400 max-w-md sm:max-w-none sm:flex-row sm:justify-center sm:items-center">
+            <Button asChild size="lg" className="bg-gold hover:bg-gold/90 text-black font-semibold group w-full sm:w-auto sm:min-w-[200px] h-12 sm:h-11">
+              <Link to="/products">
+                {t("orderNow")}
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
+            
+            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black w-full sm:w-auto sm:min-w-[200px] h-12 sm:h-11">
+              <Link to="/services">{t("services")}</Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -198,7 +191,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Masonry Gallery - Featured */}
+      {/* Masonry Gallery - Featured
       <section className="py-16 md:py-24 bg-cream">
         <div className="container px-4">
           <ScrollReveal animation="fade-up" className="text-center mb-10 md:mb-16">
@@ -223,7 +216,7 @@ const Index = () => {
             </Link>
           </ScrollReveal>
         </div>
-      </section>
+      </section> */}
 
       {/* Another Sliding Gallery */}
       <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
