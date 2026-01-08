@@ -1,17 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Target, Eye, Heart } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import brand1 from "@/assets/brand-1.jpg";
 import brand2 from "@/assets/brand-2.jpg";
 
 const About = () => {
-  const values = [
-    { icon: Target, title: "Precision" },
-    { icon: Eye, title: "Vision" },
-    { icon: Heart, title: "Passion" },
-  ];
-
   return (
     <Layout>
       {/* Hero */}
@@ -19,7 +13,7 @@ const About = () => {
         <div className="container">
           <div className="max-w-3xl animate-fade-up">
             <span className="text-gold font-medium tracking-widest uppercase text-sm">
-              About Us
+              About Twentiies
             </span>
             <h1 className="text-4xl md:text-6xl font-heading font-semibold mt-4 mb-6">
               Crafted for the Modern Man
@@ -28,49 +22,60 @@ const About = () => {
         </div>
       </section>
 
-      {/* Story Section */}
+      {/* Main Content */}
       <section className="py-24 bg-background">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6 animate-fade-up">
-              <span className="text-gold font-medium tracking-widest uppercase text-sm">
-                Our Story
-              </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-semibold">
-                Clothing That Speaks Before You Do
-              </h2>
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <div className="space-y-8 animate-fade-up">
               <p className="text-muted-foreground text-lg leading-relaxed">
-                African elegance meets modern structure. We create outfits that fit seamlessly into work, weddings, and everyday life.
+                Twentiies is a contemporary menswear house rooted in Kigali, Rwanda — offering ready-to-wear and custom tailoring crafted with purpose, precision, and cultural identity.
               </p>
+              
               <p className="text-xl font-heading text-charcoal font-medium italic">
-                "We don't just sew clothes. We shape identity."
+                "Twentiies is not simply what is worn — it is what is expressed."
+              </p>
+              
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Twentiies stands for the modern man who understands that style is a statement — a silent language of confidence, identity, and intention. Every piece is designed to carry aura, visibility and confidence.
+              </p>
+              
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                The journey began in 2016, with the discipline of learning to sew — a foundation built not only through practice, but through many struggles and resilient stories. The dream is now alive — Twentiies the Dream.
+              </p>
+              
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Luxury, at Twentiies, is defined by more than appearance. It is defined by how garments are made, how they last, neatness and precision. Through thoughtful design and select use of friendly fabric and cloth art, Twentiies commits to fashion that respects both people and planet.
               </p>
             </div>
+            
             <div className="relative">
-              <img src={brand1} alt="Workshop" className="rounded-lg shadow-2xl animate-fade-up" />
-              <img src={brand2} alt="Design" className="absolute -bottom-8 -left-8 w-2/3 rounded-lg shadow-2xl border-4 border-background animate-fade-up stagger-2 hidden md:block" />
+              <img src={brand1} alt="Twentiies Workshop" className="rounded-lg shadow-2xl animate-fade-up" />
+              <img src={brand2} alt="Twentiies Design" className="absolute -bottom-8 -left-8 w-2/3 rounded-lg shadow-2xl border-4 border-background animate-fade-up stagger-2 hidden md:block" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* Philosophy Section */}
       <section className="py-24 bg-cream">
         <div className="container">
-          <div className="grid md:grid-cols-3 gap-8">
-            {values.map((value, index) => (
-              <div
-                key={value.title}
-                className={`text-center p-8 rounded-lg bg-background border border-border hover:border-gold/50 transition-all duration-300 animate-fade-up stagger-${index + 1}`}
-              >
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gold/10 flex items-center justify-center">
-                  <value.icon className="w-8 h-8 text-gold" />
-                </div>
-                <h3 className="font-heading text-xl font-medium">
-                  {value.title}
-                </h3>
-              </div>
-            ))}
+          <div className="max-w-3xl mx-auto text-center space-y-8 animate-fade-up">
+            <p className="text-xl text-charcoal leading-relaxed">
+              Twentiies creates for men who do not chase trends —
+            </p>
+            <div className="space-y-4 text-lg text-muted-foreground">
+              <p>men who embody excellence,</p>
+              <p>men who lead with quiet authority,</p>
+              <p>men who dress with purpose.</p>
+            </div>
+            <div className="pt-8 space-y-2 text-charcoal font-heading text-xl">
+              <p>This is not fast fashion.</p>
+              <p>This is not ordinary tailoring.</p>
+              <p className="font-semibold text-2xl pt-4">This is a new tradition.</p>
+            </div>
+            <p className="text-2xl font-heading font-semibold text-gold pt-8">
+              Let's wear Twentiies.
+            </p>
           </div>
         </div>
       </section>
