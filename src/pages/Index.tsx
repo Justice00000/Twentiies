@@ -34,7 +34,6 @@ const Index = () => {
     { icon: Star, title: "Corporate Orders" },
   ];
 
-  const heroImages = [model1, model2, model3, model4];
   const slidingImages1 = [pants1, pants2, pants3, pants4, pants5, pants6];
   const slidingImages2 = [pants6, pants5, pants4, pants3, pants2, pants1];
   const flowerImages = [model1, pants1, model2, pants2, model3, pants3, model4];
@@ -149,11 +148,6 @@ const Index = () => {
           
           <FlowerBloom images={flowerImages} />
         </div>
-      </section>
-
-      {/* Sliding Gallery - Right */}
-      <section className="py-6 md:py-8 bg-brown overflow-hidden">
-        <SlidingGallery images={slidingImages2} direction="right" speed={50} />
       </section>
 
       {/* Services Preview */}

@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import brand1 from "@/assets/brand-1.jpg";
-import brand2 from "@/assets/brand-2.jpg";
 
 const About = () => {
   return (
@@ -50,7 +49,6 @@ const About = () => {
             
             <div className="relative">
               <img src={brand1} alt="Twentiies Workshop" className="rounded-lg shadow-2xl animate-fade-up" />
-              <img src={brand2} alt="Twentiies Design" className="absolute -bottom-8 -left-8 w-2/3 rounded-lg shadow-2xl border-4 border-background animate-fade-up stagger-2 hidden md:block" />
             </div>
           </div>
         </div>
