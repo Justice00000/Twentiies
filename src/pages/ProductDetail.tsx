@@ -18,9 +18,11 @@ interface Product {
   name: string;
   category: string;
   price: number;
+  currency: string;
   image_url: string | null;
   in_stock: boolean;
   product_sizes: ProductSize[];
+  product_images: { id: string; image_url: string }[];
 }
 
 const ProductDetail = () => {
@@ -28,6 +30,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { toast } = useToast();
   const { addItem, items } = useCart();
 
@@ -42,7 +45,8 @@ const ProductDetail = () => {
       .from("products")
       .select(`
         *,
-        product_sizes (size, in_stock)
+        product_sizes (size, in_stock),
+        product_images (id, image_url)
       `)
       .eq("id", id)
       .maybeSingle();
@@ -55,8 +59,9 @@ const ProductDetail = () => {
     setIsLoading(false);
   };
 
-  const formatPrice = (price: number) => {
-    return `₦${price.toLocaleString()}`;
+  const formatPrice = (price: number, currency: string) => {
+    const symbol = currency === "RWF" ? "RWF " : "₦";
+    return `${symbol}${price.toLocaleString()}`;
   };
 
   const handlePlaceOrder = () => {
@@ -71,7 +76,7 @@ const ProductDetail = () => {
       return;
     }
 
-    const message = `Hello! I would like to order:\n\nProduct: ${product.name}\nCategory: ${product.category}\nPrice: ${formatPrice(product.price)}${selectedSize ? `\nSize: ${selectedSize}` : ""}\n\nPlease confirm availability and provide payment details.`;
+    const message = `Hello! I would like to order:\n\nProduct: ${product.name}\nCategory: ${product.category}\nPrice: ${formatPrice(product.price, product.currency)}${selectedSize ? `\nSize: ${selectedSize}` : ""}\n\nPlease confirm availability and provide payment details.`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/250792417246?text=${encodedMessage}`;
@@ -159,26 +164,68 @@ const ProductDetail = () => {
       <section className="py-12 md:py-20 bg-background">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Product Image */}
-            <div className="aspect-[3/4] bg-muted overflow-hidden relative">
-              {product.image_url ? (
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                  No image available
-                </div>
-              )}
-              {!product.in_stock && (
-                <div className="absolute inset-0 bg-charcoal/60 flex items-center justify-center">
-                  <Badge variant="destructive" className="text-lg px-6 py-2">
-                    Out of Stock
-                  </Badge>
-                </div>
-              )}
+            {/* Product Images */}
+            <div className="space-y-4">
+              {/* Main Image */}
+              <div className="aspect-[3/4] bg-muted overflow-hidden relative">
+                {(() => {
+                  const allImages = [
+                    product.image_url,
+                    ...(product.product_images?.map(img => img.image_url) || [])
+                  ].filter(Boolean);
+                  
+                  const currentImage = allImages[selectedImageIndex] || product.image_url;
+                  
+                  return currentImage ? (
+                    <img
+                      src={currentImage}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                      No image available
+                    </div>
+                  );
+                })()}
+                {!product.in_stock && (
+                  <div className="absolute inset-0 bg-charcoal/60 flex items-center justify-center">
+                    <Badge variant="destructive" className="text-lg px-6 py-2">
+                      Out of Stock
+                    </Badge>
+                  </div>
+                )}
+              </div>
+              
+              {/* Image Thumbnails */}
+              {(() => {
+                const allImages = [
+                  product.image_url,
+                  ...(product.product_images?.map(img => img.image_url) || [])
+                ].filter(Boolean);
+                
+                return allImages.length > 1 && (
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {allImages.map((imgUrl, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedImageIndex(index)}
+                        className={`flex-shrink-0 w-20 h-20 overflow-hidden border-2 transition-colors ${
+                          selectedImageIndex === index
+                            ? "border-gold"
+                            : "border-transparent hover:border-muted-foreground"
+                        }`}
+                      >
+                        <img
+                          src={imgUrl!}
+                          alt={`${product.name} ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Product Info */}
@@ -190,7 +237,7 @@ const ProductDetail = () => {
                 {product.name}
               </h1>
               <p className="text-2xl text-gold font-medium mt-4">
-                {formatPrice(product.price)}
+                {formatPrice(product.price, product.currency)}
               </p>
 
               {/* Size Selection */}

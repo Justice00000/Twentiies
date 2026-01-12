@@ -2,20 +2,24 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import ProductForm from "@/components/admin/ProductForm";
 import ProductTable from "@/components/admin/ProductTable";
-import { Plus, LogOut, Package, ShoppingBag } from "lucide-react";
+import GalleryManager from "@/components/admin/GalleryManager";
+import { Plus, LogOut, Package, ShoppingBag, Image } from "lucide-react";
 
 interface Product {
   id: string;
   name: string;
   category: string;
   price: number;
+  currency: string;
   image_url: string | null;
   in_stock: boolean;
   product_sizes: { size: string; in_stock: boolean }[];
+  product_images: { id: string; image_url: string }[];
 }
 
 const Admin = () => {
@@ -23,8 +27,10 @@ const Admin = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [showForm, setShowForm] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [loadingProducts, setLoadingProducts] = useState(true);
+  const [activeTab, setActiveTab] = useState("products");
 
   useEffect(() => {
     if (!isLoading && !isAdmin) {
@@ -44,7 +50,8 @@ const Admin = () => {
       .from("products")
       .select(`
         *,
-        product_sizes (size, in_stock)
+        product_sizes (size, in_stock),
+        product_images (id, image_url)
       `)
       .order("created_at", { ascending: false });
 
@@ -148,52 +155,75 @@ const Admin = () => {
           </Card>
         </div>
 
-        {/* Products Section */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-heading font-semibold">Products</h2>
-            {!showForm && (
-              <Button onClick={() => setShowForm(true)}>
-                <Plus className="h-4 w-4 mr-2" />
-                Add Product
-              </Button>
-            )}
-          </div>
+        {/* Tabs for Products and Gallery */}
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList>
+            <TabsTrigger value="products">
+              <Package className="h-4 w-4 mr-2" />
+              Products
+            </TabsTrigger>
+            <TabsTrigger value="gallery">
+              <Image className="h-4 w-4 mr-2" />
+              Gallery
+            </TabsTrigger>
+          </TabsList>
 
-          {showForm ? (
+          <TabsContent value="products" className="space-y-4 mt-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-heading font-semibold">Products</h2>
+              {!showForm && (
+                <Button onClick={() => setShowForm(true)}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Product
+                </Button>
+              )}
+            </div>
+
+            {showForm ? (
+              <Card>
+                <CardContent className="pt-6">
+                  <ProductForm
+                    onSuccess={handleFormSuccess}
+                    onCancel={handleFormCancel}
+                    initialData={
+                      editingProduct
+                        ? {
+                            id: editingProduct.id,
+                            name: editingProduct.name,
+                            category: editingProduct.category,
+                            price: editingProduct.price,
+                            currency: editingProduct.currency,
+                            image_url: editingProduct.image_url,
+                            in_stock: editingProduct.in_stock,
+                            sizes: editingProduct.product_sizes,
+                            additional_images: editingProduct.product_images,
+                          }
+                        : undefined
+                    }
+                  />
+                </CardContent>
+              </Card>
+            ) : loadingProducts ? (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">Loading products...</p>
+              </div>
+            ) : (
+              <ProductTable
+                products={products}
+                onEdit={handleEdit}
+                onRefresh={fetchProducts}
+              />
+            )}
+          </TabsContent>
+
+          <TabsContent value="gallery" className="mt-4">
             <Card>
               <CardContent className="pt-6">
-                <ProductForm
-                  onSuccess={handleFormSuccess}
-                  onCancel={handleFormCancel}
-                  initialData={
-                    editingProduct
-                      ? {
-                          id: editingProduct.id,
-                          name: editingProduct.name,
-                          category: editingProduct.category,
-                          price: editingProduct.price,
-                          image_url: editingProduct.image_url,
-                          in_stock: editingProduct.in_stock,
-                          sizes: editingProduct.product_sizes,
-                        }
-                      : undefined
-                  }
-                />
+                <GalleryManager onClose={() => setActiveTab("products")} />
               </CardContent>
             </Card>
-          ) : loadingProducts ? (
-            <div className="text-center py-8">
-              <p className="text-muted-foreground">Loading products...</p>
-            </div>
-          ) : (
-            <ProductTable
-              products={products}
-              onEdit={handleEdit}
-              onRefresh={fetchProducts}
-            />
-          )}
-        </div>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
