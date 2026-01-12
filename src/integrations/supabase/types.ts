@@ -14,6 +14,65 @@ export type Database = {
   }
   public: {
     Tables: {
+      gallery_images: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number
+          id: string
+          image_url: string
+          title: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          id?: string
+          image_url: string
+          title?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          id?: string
+          image_url?: string
+          title?: string | null
+        }
+        Relationships: []
+      }
+      product_images: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          image_url: string
+          product_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url: string
+          product_id: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string
+          product_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_images_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product_sizes: {
         Row: {
           created_at: string
@@ -50,6 +109,7 @@ export type Database = {
         Row: {
           category: string
           created_at: string
+          currency: string
           id: string
           image_url: string | null
           in_stock: boolean
@@ -60,6 +120,7 @@ export type Database = {
         Insert: {
           category: string
           created_at?: string
+          currency?: string
           id?: string
           image_url?: string | null
           in_stock?: boolean
@@ -70,6 +131,7 @@ export type Database = {
         Update: {
           category?: string
           created_at?: string
+          currency?: string
           id?: string
           image_url?: string | null
           in_stock?: boolean

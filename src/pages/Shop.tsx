@@ -12,6 +12,7 @@ interface Product {
   name: string;
   category: string;
   price: number;
+  currency: string;
   image_url: string | null;
   in_stock: boolean;
   product_sizes: { size: string; in_stock: boolean }[];
@@ -49,8 +50,9 @@ const Shop = () => {
       ? products
       : products.filter((p) => p.category === activeCategory);
 
-  const formatPrice = (price: number) => {
-    return `₦${price.toLocaleString()}`;
+  const formatPrice = (price: number, currency: string) => {
+    const symbol = currency === "RWF" ? "RWF " : "₦";
+    return `${symbol}${price.toLocaleString()}`;
   };
 
   const handleAddToCart = (e: React.MouseEvent, product: Product) => {
@@ -155,7 +157,7 @@ const Shop = () => {
                         {product.name}
                       </h3>
                       <p className="text-gold font-medium mt-1">
-                        {formatPrice(product.price)}
+                        {formatPrice(product.price, product.currency)}
                       </p>
                       {product.product_sizes.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-2">
