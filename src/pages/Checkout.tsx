@@ -122,13 +122,13 @@ ${formData.additionalNotes ? `*Notes:* ${formData.additionalNotes}` : ""}
   return (
     <Layout>
       {/* Hero */}
-      <section className="py-24 bg-charcoal text-primary-foreground">
-        <div className="container">
+      <section className="py-16 md:py-24 bg-charcoal text-primary-foreground">
+        <div className="container px-4">
           <div className="max-w-3xl animate-fade-up">
-            <span className="text-gold font-medium tracking-widest uppercase text-sm">
+            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
               Checkout
             </span>
-            <h1 className="text-4xl md:text-6xl font-heading font-semibold mt-4 mb-6">
+            <h1 className="text-3xl md:text-6xl font-heading font-semibold mt-3 md:mt-4 mb-4 md:mb-6">
               Complete Your Order
             </h1>
           </div>
@@ -137,28 +137,28 @@ ${formData.additionalNotes ? `*Notes:* ${formData.additionalNotes}` : ""}
 
       {/* MoMo Payment Dialog */}
       <Dialog open={showMomoDialog} onOpenChange={setShowMomoDialog}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="w-[95vw] max-w-md mx-auto rounded-lg">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-heading text-center">
+            <DialogTitle className="text-xl md:text-2xl font-heading text-center">
               Pay with Mobile Money
             </DialogTitle>
-            <DialogDescription className="text-center">
+            <DialogDescription className="text-center text-sm">
               Send your payment to the MoMo code below
             </DialogDescription>
           </DialogHeader>
           
-          <div className="space-y-6 py-4">
+          <div className="space-y-4 md:space-y-6 py-2 md:py-4">
             <div className="text-center">
-              <p className="text-muted-foreground mb-2">Total Amount</p>
-              <p className="text-3xl font-heading font-bold text-gold">
+              <p className="text-muted-foreground text-sm mb-1">Total Amount</p>
+              <p className="text-2xl md:text-3xl font-heading font-bold text-gold">
                 {formatPrice(totalPrice)}
               </p>
             </div>
             
-            <div className="bg-muted rounded-lg p-6 text-center">
-              <p className="text-sm text-muted-foreground mb-2">MoMo Code</p>
-              <div className="flex items-center justify-center gap-3">
-                <span className="text-4xl font-mono font-bold tracking-wider">
+            <div className="bg-muted rounded-lg p-4 md:p-6 text-center">
+              <p className="text-xs md:text-sm text-muted-foreground mb-2">MoMo Code</p>
+              <div className="flex items-center justify-center gap-2 md:gap-3">
+                <span className="text-2xl md:text-4xl font-mono font-bold tracking-wider">
                   {MOMO_CODE}
                 </span>
                 <button
@@ -175,7 +175,7 @@ ${formData.additionalNotes ? `*Notes:* ${formData.additionalNotes}` : ""}
               </div>
             </div>
 
-            <div className="text-center text-sm text-muted-foreground">
+            <div className="text-center text-xs md:text-sm text-muted-foreground px-2">
               <p>After sending payment, click the button below to continue</p>
             </div>
 
@@ -193,8 +193,8 @@ ${formData.additionalNotes ? `*Notes:* ${formData.additionalNotes}` : ""}
       </Dialog>
 
       {/* Delivery Details Form */}
-      <section className="py-16 bg-background">
-        <div className="container max-w-2xl">
+      <section className="py-8 md:py-16 bg-background">
+        <div className="container max-w-2xl px-4">
           {!paymentConfirmed ? (
             <div className="text-center py-8 animate-fade-up">
               <p className="text-muted-foreground">
@@ -209,17 +209,17 @@ ${formData.additionalNotes ? `*Notes:* ${formData.additionalNotes}` : ""}
               </Button>
             </div>
           ) : (
-            <div className="space-y-8 animate-fade-up">
+            <div className="space-y-6 md:space-y-8 animate-fade-up">
               <div className="text-center">
-                <h2 className="text-2xl font-heading font-semibold mb-2">
+                <h2 className="text-xl md:text-2xl font-heading font-semibold mb-2">
                   Delivery Details
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-sm md:text-base">
                   Fill in your delivery information to complete your order
                 </p>
               </div>
 
-              <div className="bg-card rounded-lg border border-border p-6 space-y-6">
+              <div className="bg-card rounded-lg border border-border p-4 md:p-6 space-y-4 md:space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="flex items-center gap-2">
                     <User className="w-4 h-4" />

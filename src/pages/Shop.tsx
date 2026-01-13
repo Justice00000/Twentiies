@@ -65,16 +65,16 @@ const Shop = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="py-24 bg-charcoal text-primary-foreground">
-        <div className="container">
+      <section className="py-16 md:py-24 bg-charcoal text-primary-foreground">
+        <div className="container px-4">
           <div className="max-w-3xl animate-fade-up">
-            <span className="text-gold font-medium tracking-widest uppercase text-sm">
+            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
               Our Collection
             </span>
-            <h1 className="text-4xl md:text-6xl font-heading font-semibold mt-4 mb-6">
+            <h1 className="text-3xl md:text-6xl font-heading font-semibold mt-3 md:mt-4 mb-4 md:mb-6">
               Shop
             </h1>
-            <p className="text-lg text-primary-foreground/80">
+            <p className="text-base md:text-lg text-primary-foreground/80">
               Curated pieces for the modern gentleman.
             </p>
           </div>
@@ -82,16 +82,16 @@ const Shop = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 border-b border-border bg-background sticky top-20 z-40">
-        <div className="container">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+      <section className="py-4 md:py-8 border-b border-border bg-background sticky top-20 z-40">
+        <div className="container px-4">
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
             {categories.map((category) => (
               <Button
                 key={category}
                 variant={activeCategory === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => setActiveCategory(category)}
-                className="whitespace-nowrap"
+                className="whitespace-nowrap flex-shrink-0"
               >
                 {category}
               </Button>
@@ -101,14 +101,14 @@ const Shop = () => {
       </section>
 
       {/* Products Grid */}
-      <section className="py-16 bg-background">
-        <div className="container">
+      <section className="py-8 md:py-16 bg-background">
+        <div className="container px-4">
           {isLoading ? (
-            <div className="text-center py-16">
+            <div className="text-center py-12 md:py-16">
               <p className="text-muted-foreground">Loading products...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {filteredProducts.map((product, index) => (
                 <Link key={product.id} to={`/shop/${product.id}`}>
                   <Card
@@ -149,27 +149,32 @@ const Shop = () => {
                         </div>
                       )}
                     </div>
-                    <CardContent className="px-0 pt-4">
+                    <CardContent className="px-0 pt-3 md:pt-4">
                       <span className="text-xs text-muted-foreground uppercase tracking-wider">
                         {product.category}
                       </span>
-                      <h3 className="font-heading font-semibold text-lg mt-1">
+                      <h3 className="font-heading font-semibold text-sm md:text-lg mt-1 truncate">
                         {product.name}
                       </h3>
-                      <p className="text-gold font-medium mt-1">
+                      <p className="text-gold font-medium mt-1 text-sm md:text-base">
                         {formatPrice(product.price, product.currency)}
                       </p>
                       {product.product_sizes.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-2">
-                          {product.product_sizes.map((size) => (
+                          {product.product_sizes.slice(0, 4).map((size) => (
                             <Badge
                               key={size.size}
                               variant={size.in_stock ? "secondary" : "outline"}
-                              className="text-xs"
+                              className="text-xs px-1.5 py-0.5"
                             >
                               {size.size}
                             </Badge>
                           ))}
+                          {product.product_sizes.length > 4 && (
+                            <Badge variant="outline" className="text-xs px-1.5 py-0.5">
+                              +{product.product_sizes.length - 4}
+                            </Badge>
+                          )}
                         </div>
                       )}
                     </CardContent>
@@ -180,7 +185,7 @@ const Shop = () => {
           )}
 
           {!isLoading && filteredProducts.length === 0 && (
-            <div className="text-center py-16">
+            <div className="text-center py-12 md:py-16">
               <p className="text-muted-foreground">No products in this category.</p>
             </div>
           )}
@@ -188,12 +193,12 @@ const Shop = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-cream">
-        <div className="container text-center">
-          <h2 className="text-2xl md:text-3xl font-heading font-semibold mb-4">
+      <section className="py-12 md:py-16 bg-cream">
+        <div className="container text-center px-4">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-heading font-semibold mb-4">
             Ready to Order?
           </h2>
-          <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+          <p className="text-muted-foreground mb-6 md:mb-8 max-w-md mx-auto text-sm md:text-base">
             Place your custom order with your measurements.
           </p>
           <Link to="/order">

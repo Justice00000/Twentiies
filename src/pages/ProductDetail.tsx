@@ -161,9 +161,9 @@ const ProductDetail = () => {
       </section>
 
       {/* Product Details */}
-      <section className="py-12 md:py-20 bg-background">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <section className="py-8 md:py-12 lg:py-20 bg-background">
+        <div className="container px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12">
             {/* Product Images */}
             <div className="space-y-4">
               {/* Main Image */}
@@ -230,20 +230,20 @@ const ProductDetail = () => {
 
             {/* Product Info */}
             <div className="flex flex-col">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">
+              <span className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider">
                 {product.category}
               </span>
-              <h1 className="text-3xl md:text-4xl font-heading font-semibold mt-2">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-heading font-semibold mt-2">
                 {product.name}
               </h1>
-              <p className="text-2xl text-gold font-medium mt-4">
+              <p className="text-xl md:text-2xl text-gold font-medium mt-3 md:mt-4">
                 {formatPrice(product.price, product.currency)}
               </p>
 
               {/* Size Selection */}
               {product.product_sizes.length > 0 && (
-                <div className="mt-8">
-                  <h3 className="text-sm font-medium mb-3">Select Size</h3>
+                <div className="mt-6 md:mt-8">
+                  <h3 className="text-sm font-medium mb-3">Select Size *</h3>
                   <div className="flex flex-wrap gap-2">
                     {product.product_sizes.map((sizeOption) => (
                       <button
@@ -253,7 +253,7 @@ const ProductDetail = () => {
                         }
                         disabled={!sizeOption.in_stock}
                         className={`
-                          px-4 py-2 border text-sm font-medium transition-all
+                          px-3 md:px-4 py-2 border text-sm font-medium transition-all min-w-[3rem]
                           ${
                             selectedSize === sizeOption.size
                               ? "border-gold bg-gold text-charcoal"
@@ -276,7 +276,7 @@ const ProductDetail = () => {
               )}
 
               {/* Stock Status */}
-              <div className="mt-6">
+              <div className="mt-4 md:mt-6">
                 {product.in_stock ? (
                   <Badge variant="secondary" className="bg-green-100 text-green-800">
                     In Stock
@@ -287,7 +287,7 @@ const ProductDetail = () => {
               </div>
 
               {/* Order Buttons */}
-              <div className="mt-8 space-y-3">
+              <div className="mt-6 md:mt-8 space-y-3">
                 <Button
                   variant={isInCart() ? "secondary" : "hero"}
                   size="xl"
@@ -323,14 +323,14 @@ const ProductDetail = () => {
               </div>
 
               {/* Additional Info */}
-              <div className="mt-12 pt-8 border-t border-border">
-                <h3 className="font-medium mb-4">How to Order</h3>
+              <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border">
+                <h3 className="font-medium mb-3 md:mb-4">How to Order</h3>
                 <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
                   <li>Select your preferred size above</li>
-                  <li>Click "Order via WhatsApp"</li>
-                  <li>Confirm your order details with us</li>
-                  <li>Provide your measurements and delivery address</li>
-                  <li>Complete payment to confirm your order</li>
+                  <li>Add to cart or order directly via WhatsApp</li>
+                  <li>Complete checkout with MoMo payment</li>
+                  <li>Fill in delivery details</li>
+                  <li>We'll confirm and ship your order</li>
                 </ol>
               </div>
             </div>
