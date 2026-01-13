@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
-import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, MessageCircle } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { items, removeItem, updateQuantity, clearCart, totalPrice } = useCart();
   const { toast } = useToast();
 
@@ -20,34 +21,7 @@ const Cart = () => {
       });
       return;
     }
-
-    const itemsList = items
-      .map(
-        (item) =>
-          `• ${item.name}${item.size ? ` (Size: ${item.size})` : ""} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
-      )
-      .join("\n");
-
-    const message = `
-*ORDER FROM TWENTIIES*
-━━━━━━━━━━━━━━━━
-
-${itemsList}
-
-━━━━━━━━━━━━━━━━
-*Total: ${formatPrice(totalPrice)}*
-
-Please confirm availability and provide payment details.
-    `.trim();
-
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/250792417246?text=${encodedMessage}`;
-    window.open(whatsappUrl, "_blank");
-
-    toast({
-      title: "Redirecting to WhatsApp",
-      description: "Complete your order via WhatsApp.",
-    });
+    navigate("/checkout");
   };
 
   return (
@@ -155,13 +129,12 @@ Please confirm availability and provide payment details.
                     Clear Cart
                   </Button>
                   <Button
-                    variant="whatsapp"
+                    variant="hero"
                     size="lg"
                     onClick={handleCheckout}
                     className="flex-1 group"
                   >
-                    <MessageCircle className="w-5 h-5" />
-                    Checkout via WhatsApp
+                    Proceed to Checkout
                     <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </div>
