@@ -7,10 +7,14 @@ import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { X } from "lucide-react";
+import { X, Plus, Trash2 } from "lucide-react";
 
 const categories = ["Agbada", "Kaftan", "Senator", "Fabrics"];
 const availableSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+const currencies = [
+  { value: "NGN", label: "₦ Naira (NGN)", symbol: "₦" },
+  { value: "RWF", label: "RWF Rwandan Franc", symbol: "RWF" },
+];
 
 interface ProductFormProps {
   onSuccess: () => void;
@@ -20,9 +24,11 @@ interface ProductFormProps {
     name: string;
     category: string;
     price: number;
+    currency?: string;
     image_url: string | null;
     in_stock: boolean;
     sizes?: { size: string; in_stock: boolean }[];
+    additional_images?: { id: string; image_url: string }[];
   };
 }
 
@@ -30,11 +36,17 @@ const ProductForm = ({ onSuccess, onCancel, initialData }: ProductFormProps) => 
   const [name, setName] = useState(initialData?.name || "");
   const [category, setCategory] = useState(initialData?.category || "");
   const [price, setPrice] = useState(initialData?.price?.toString() || "");
+  const [currency, setCurrency] = useState(initialData?.currency || "NGN");
   const [inStock, setInStock] = useState(initialData?.in_stock ?? true);
   const [selectedSizes, setSelectedSizes] = useState<{ size: string; in_stock: boolean }[]>(
     initialData?.sizes || []
   );
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [additionalImages, setAdditionalImages] = useState<File[]>([]);
+  const [existingAdditionalImages, setExistingAdditionalImages] = useState<{ id: string; image_url: string }[]>(
+    initialData?.additional_images || []
+  );
+  const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -99,12 +111,46 @@ const ProductForm = ({ onSuccess, onCancel, initialData }: ProductFormProps) => 
             name,
             category,
             price: parseFloat(price),
+            currency,
             image_url: imageUrl,
             in_stock: inStock,
           })
           .eq("id", initialData.id);
 
         if (error) throw error;
+
+        // Delete removed additional images
+        if (imagesToDelete.length > 0) {
+          await supabase
+            .from("product_images")
+            .delete()
+            .in("id", imagesToDelete);
+        }
+
+        // Upload new additional images
+        if (additionalImages.length > 0) {
+          for (let i = 0; i < additionalImages.length; i++) {
+            const file = additionalImages[i];
+            const fileExt = file.name.split(".").pop();
+            const fileName = `${Date.now()}-${i}.${fileExt}`;
+
+            const { error: uploadError } = await supabase.storage
+              .from("product-images")
+              .upload(fileName, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+              .from("product-images")
+              .getPublicUrl(fileName);
+
+            await supabase.from("product_images").insert({
+              product_id: initialData.id,
+              image_url: publicUrl,
+              display_order: existingAdditionalImages.length + i,
+            });
+          }
+        }
 
         // Delete existing sizes and re-add
         await supabase
@@ -135,6 +181,7 @@ const ProductForm = ({ onSuccess, onCancel, initialData }: ProductFormProps) => 
             name,
             category,
             price: parseFloat(price),
+            currency,
             image_url: imageUrl,
             in_stock: inStock,
           })
@@ -156,6 +203,31 @@ const ProductForm = ({ onSuccess, onCancel, initialData }: ProductFormProps) => 
             );
 
           if (sizeError) throw sizeError;
+        }
+
+        // Upload additional images
+        if (additionalImages.length > 0) {
+          for (let i = 0; i < additionalImages.length; i++) {
+            const file = additionalImages[i];
+            const fileExt = file.name.split(".").pop();
+            const fileName = `${Date.now()}-${i}.${fileExt}`;
+
+            const { error: uploadError } = await supabase.storage
+              .from("product-images")
+              .upload(fileName, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+              .from("product-images")
+              .getPublicUrl(fileName);
+
+            await supabase.from("product_images").insert({
+              product_id: product.id,
+              image_url: publicUrl,
+              display_order: i,
+            });
+          }
         }
 
         toast({ title: "Product created successfully" });
@@ -211,21 +283,38 @@ const ProductForm = ({ onSuccess, onCancel, initialData }: ProductFormProps) => 
           </Select>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="price">Price (₦) *</Label>
-          <Input
-            id="price"
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="Enter price"
-            min="0"
-            step="0.01"
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="price">Price *</Label>
+            <Input
+              id="price"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="Enter price"
+              min="0"
+              step="0.01"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="currency">Currency *</Label>
+            <Select value={currency} onValueChange={setCurrency}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select currency" />
+              </SelectTrigger>
+              <SelectContent>
+                {currencies.map((cur) => (
+                  <SelectItem key={cur.value} value={cur.value}>
+                    {cur.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="image">Product Image</Label>
+          <Label htmlFor="image">Main Product Image</Label>
           <Input
             id="image"
             type="file"
@@ -234,6 +323,58 @@ const ProductForm = ({ onSuccess, onCancel, initialData }: ProductFormProps) => 
           />
           {initialData?.image_url && !imageFile && (
             <p className="text-sm text-muted-foreground">Current image will be kept</p>
+          )}
+        </div>
+
+        <div className="space-y-2">
+          <Label>Additional Images</Label>
+          <Input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => setAdditionalImages(Array.from(e.target.files || []))}
+          />
+          {additionalImages.length > 0 && (
+            <p className="text-sm text-muted-foreground">
+              {additionalImages.length} new image(s) selected
+            </p>
+          )}
+          
+          {/* Existing additional images */}
+          {existingAdditionalImages.length > 0 && (
+            <div className="mt-2">
+              <p className="text-sm text-muted-foreground mb-2">Current additional images:</p>
+              <div className="flex flex-wrap gap-2">
+                {existingAdditionalImages.map((img) => (
+                  <div key={img.id} className="relative group">
+                    <img
+                      src={img.image_url}
+                      alt="Product"
+                      className={`w-16 h-16 object-cover rounded ${
+                        imagesToDelete.includes(img.id) ? "opacity-30" : ""
+                      }`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (imagesToDelete.includes(img.id)) {
+                          setImagesToDelete(imagesToDelete.filter((id) => id !== img.id));
+                        } else {
+                          setImagesToDelete([...imagesToDelete, img.id]);
+                        }
+                      }}
+                      className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      {imagesToDelete.includes(img.id) ? (
+                        <Plus className="h-3 w-3" />
+                      ) : (
+                        <Trash2 className="h-3 w-3" />
+                      )}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
 
