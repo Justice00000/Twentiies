@@ -34,10 +34,9 @@ const Index = () => {
     { icon: Star, title: "Corporate Orders" },
   ];
 
-  const slidingImages1 = [pants1, pants2, pants3, pants4, pants5, pants6];
-  const slidingImages2 = [pants6, pants5, pants4, pants3, pants2, pants1];
-  const flowerImages = [model1, pants1, model2, pants2, model3, pants3, model4];
-  const masonryImages = [pants1, model1, pants2, model2, pants3, model3, pants4, pants5];
+  const heroImages = [model1, model2, model3, model4];
+  // Fallback images for galleries (used if no DB images)
+  const fallbackGalleryImages = [pants1, pants2, pants3, pants4, pants5, pants6];
 
   return (
     <Layout>
@@ -83,7 +82,7 @@ const Index = () => {
 
       {/* Sliding Gallery - Left */}
       <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery images={slidingImages1} direction="left" speed={60} />
+        <SlidingGallery fallbackImages={fallbackGalleryImages} direction="left" speed={60} />
       </section>
 
       {/* Intro Section with 3D Cards */}
@@ -146,9 +145,10 @@ const Index = () => {
             </p>
           </ScrollReveal>
           
-          <FlowerBloom images={flowerImages} />
+          <FlowerBloom fallbackImages={fallbackGalleryImages} />
         </div>
       </section>
+
 
       {/* Services Preview */}
       <section className="py-16 md:py-24 bg-charcoal text-primary-foreground">
@@ -205,7 +205,7 @@ const Index = () => {
           </ScrollReveal>
 
           <Link to="/shop">
-            <MasonryGallery images={masonryImages} />
+            <MasonryGallery fallbackImages={fallbackGalleryImages} />
           </Link>
           
           <ScrollReveal animation="fade-up" delay={200} className="text-center mt-8 md:mt-12">
@@ -219,10 +219,6 @@ const Index = () => {
         </div>
       </section> */}
 
-      {/* Another Sliding Gallery */}
-      <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery images={[...slidingImages1].reverse()} direction="left" speed={55} />
-      </section>
 
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-brown text-primary-foreground relative overflow-hidden">
