@@ -35,10 +35,8 @@ const Index = () => {
   ];
 
   const heroImages = [model1, model2, model3, model4];
-  // Fallback images for sliding gallery (used if no DB images)
-  const fallbackSlidingImages = [pants1, pants2, pants3, pants4, pants5, pants6];
-  const flowerImages = [model1, pants1, model2, pants2, model3, pants3, model4];
-  const masonryImages = [pants1, model1, pants2, model2, pants3, model3, pants4, pants5];
+  // Fallback images for galleries (used if no DB images)
+  const fallbackGalleryImages = [pants1, pants2, pants3, pants4, pants5, pants6];
 
   return (
     <Layout>
@@ -84,7 +82,7 @@ const Index = () => {
 
       {/* Sliding Gallery - Left */}
       <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery fallbackImages={fallbackSlidingImages} direction="left" speed={60} />
+        <SlidingGallery fallbackImages={fallbackGalleryImages} direction="left" speed={60} />
       </section>
 
       {/* Intro Section with 3D Cards */}
@@ -147,7 +145,7 @@ const Index = () => {
             </p>
           </ScrollReveal>
           
-          <FlowerBloom images={flowerImages} />
+          <FlowerBloom fallbackImages={fallbackGalleryImages} />
         </div>
       </section>
 
@@ -207,7 +205,7 @@ const Index = () => {
           </ScrollReveal>
 
           <Link to="/shop">
-            <MasonryGallery images={masonryImages} />
+            <MasonryGallery fallbackImages={fallbackGalleryImages} />
           </Link>
           
           <ScrollReveal animation="fade-up" delay={200} className="text-center mt-8 md:mt-12">

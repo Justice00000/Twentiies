@@ -1,13 +1,38 @@
 import { useEffect, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface FlowerBloomProps {
-  images: string[];
+  fallbackImages?: string[];
   className?: string;
 }
 
-const FlowerBloom = ({ images, className = "" }: FlowerBloomProps) => {
+interface GalleryImage {
+  id: string;
+  image_url: string;
+  display_order: number;
+}
+
+const FlowerBloom = ({ fallbackImages = [], className = "" }: FlowerBloomProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [dbImages, setDbImages] = useState<GalleryImage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      const { data, error } = await supabase
+        .from("gallery_images")
+        .select("*")
+        .order("display_order", { ascending: true });
+
+      if (!error && data && data.length > 0) {
+        setDbImages(data);
+      }
+      setIsLoading(false);
+    };
+
+    fetchGalleryImages();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +58,16 @@ const FlowerBloom = ({ images, className = "" }: FlowerBloomProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Use database images if available, otherwise use fallback
+  const images = dbImages.length > 0 
+    ? dbImages.map(img => img.image_url) 
+    : fallbackImages;
+
+  // Don't render if no images
+  if (!isLoading && images.length === 0) {
+    return null;
+  }
+
   const getTransform = (index: number, total: number) => {
     const angle = (index / total) * 360;
     const radians = (angle * Math.PI) / 180;
@@ -51,18 +86,20 @@ const FlowerBloom = ({ images, className = "" }: FlowerBloomProps) => {
   return (
     <div ref={containerRef} className={`relative h-[600px] flex items-center justify-center ${className}`}>
       {/* Center image */}
-      <div 
-        className="absolute w-48 h-64 md:w-64 md:h-80 rounded-lg overflow-hidden shadow-2xl z-10 transition-all duration-300"
-        style={{
-          transform: `scale(${1 - scrollProgress * 0.2})`,
-        }}
-      >
-        <img 
-          src={images[0]} 
-          alt="Center piece" 
-          className="w-full h-full object-cover"
-        />
-      </div>
+      {images.length > 0 && (
+        <div 
+          className="absolute w-48 h-64 md:w-64 md:h-80 rounded-lg overflow-hidden shadow-2xl z-10 transition-all duration-300"
+          style={{
+            transform: `scale(${1 - scrollProgress * 0.2})`,
+          }}
+        >
+          <img 
+            src={images[0]} 
+            alt="Center piece" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
       
       {/* Blooming petals */}
       {images.slice(1).map((image, index) => (
