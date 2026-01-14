@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
-import brand1 from "@/assets/brand-1.jpg";
 
 const About = () => {
   return (
@@ -24,32 +23,26 @@ const About = () => {
       {/* Main Content */}
       <section className="py-24 bg-background">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <div className="space-y-8 animate-fade-up">
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                Twentiies is a contemporary menswear house rooted in Kigali, Rwanda — offering ready-to-wear and custom tailoring crafted with purpose, precision, and cultural identity.
-              </p>
-              
-              <p className="text-xl font-heading text-charcoal font-medium italic">
-                "Twentiies is not simply what is worn — it is what is expressed."
-              </p>
-              
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                Twentiies stands for the modern man who understands that style is a statement — a silent language of confidence, identity, and intention. Every piece is designed to carry aura, visibility and confidence.
-              </p>
-              
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                The journey began in 2016, with the discipline of learning to sew — a foundation built not only through practice, but through many struggles and resilient stories. The dream is now alive — Twentiies the Dream.
-              </p>
-              
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                Luxury, at Twentiies, is defined by more than appearance. It is defined by how garments are made, how they last, neatness and precision. Through thoughtful design and select use of friendly fabric and cloth art, Twentiies commits to fashion that respects both people and planet.
-              </p>
-            </div>
+          <div className="max-w-4xl mx-auto space-y-8 animate-fade-up">
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Twentiies is a distinguished contemporary menswear atelier headquartered in Kigali, Rwanda. We specialise in bespoke tailoring and curated ready-to-wear collections, each piece meticulously crafted with an unwavering commitment to precision, quality, and cultural authenticity.
+            </p>
             
-            <div className="relative">
-              <img src={brand1} alt="Twentiies Workshop" className="rounded-lg shadow-2xl animate-fade-up" />
-            </div>
+            <p className="text-xl font-heading text-charcoal font-medium italic border-l-4 border-gold pl-6">
+              "At Twentiies, garments are not merely worn — they are expressions of identity, purpose, and distinction."
+            </p>
+            
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Our clientele comprises discerning gentlemen who recognise that exceptional style transcends fleeting trends. Each Twentiies creation is designed to embody sophistication, command presence, and articulate the wearer's unique narrative.
+            </p>
+            
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Established in 2016, Twentiies was founded upon a foundation of disciplined craftsmanship and an unyielding pursuit of excellence. Through years of dedicated practice and continuous refinement, we have cultivated an atelier that delivers uncompromising quality in every stitch.
+            </p>
+            
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              We define luxury not by ostentation, but by the integrity of our craft — the precision of our construction, the longevity of our garments, and our conscientious selection of premium fabrics. Twentiies remains committed to sustainable practices that honour both our craft and our environment.
+            </p>
           </div>
         </div>
       </section>
@@ -58,32 +51,19 @@ const About = () => {
       <section className="py-24 bg-cream">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center space-y-8 animate-fade-up">
-            <p className="text-xl text-charcoal leading-relaxed">
-              Twentiies creates for men who do not chase trends —
-            </p>
-            <div className="space-y-4 text-lg text-muted-foreground">
-              <p>men who embody excellence,</p>
-              <p>men who lead with quiet authority,</p>
-              <p>men who dress with purpose.</p>
-            </div>
-            <div className="pt-8 space-y-2 text-charcoal font-heading text-xl">
-              <p>This is not fast fashion.</p>
-              <p>This is not ordinary tailoring.</p>
-              <p className="font-semibold text-2xl pt-4">This is a new tradition.</p>
-            </div>
             <p className="text-2xl font-heading font-semibold text-gold pt-8">
-              Let's wear Twentiies.
+              Experience Twentiies.
             </p>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-charcoal text-primary-foreground">
+      <section className="py-24 bg-background">
         <div className="container text-center">
           <div className="max-w-2xl mx-auto animate-fade-up">
-            <h2 className="text-3xl md:text-4xl font-heading font-semibold mb-8">
-              Ready to Experience Twentiies?
+            <h2 className="text-3xl md:text-4xl font-heading font-semibold mb-8 text-charcoal">
+              Ready to Define Your Style?
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/services">
@@ -93,7 +73,7 @@ const About = () => {
                 </Button>
               </Link>
               <Link to="/order">
-                <Button variant="hero-outline" size="lg" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-charcoal">
+                <Button variant="outline" size="lg" className="text-charcoal border-charcoal hover:bg-charcoal hover:text-primary-foreground">
                   Place Order
                 </Button>
               </Link>
