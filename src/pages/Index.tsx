@@ -151,10 +151,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Sliding Gallery - Right */}
-      <section className="py-6 md:py-8 bg-brown overflow-hidden">
-        <SlidingGallery fallbackImages={[...fallbackSlidingImages].reverse()} direction="right" speed={50} />
-      </section>
 
       {/* Services Preview */}
       <section className="py-16 md:py-24 bg-charcoal text-primary-foreground">
@@ -225,10 +221,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Another Sliding Gallery */}
-      <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery fallbackImages={fallbackSlidingImages} direction="left" speed={55} />
-      </section>
 
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-brown text-primary-foreground relative overflow-hidden">
