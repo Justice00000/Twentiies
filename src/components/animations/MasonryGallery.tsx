@@ -1,8 +1,16 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import ScrollReveal from "./ScrollReveal";
 
 interface MasonryGalleryProps {
-  images: string[];
+  fallbackImages?: string[];
   className?: string;
+}
+
+interface GalleryImage {
+  id: string;
+  image_url: string;
+  display_order: number;
 }
 
 const animations = [
@@ -14,7 +22,36 @@ const animations = [
   "bounce-in",
 ] as const;
 
-const MasonryGallery = ({ images, className = "" }: MasonryGalleryProps) => {
+const MasonryGallery = ({ fallbackImages = [], className = "" }: MasonryGalleryProps) => {
+  const [dbImages, setDbImages] = useState<GalleryImage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      const { data, error } = await supabase
+        .from("gallery_images")
+        .select("*")
+        .order("display_order", { ascending: true });
+
+      if (!error && data && data.length > 0) {
+        setDbImages(data);
+      }
+      setIsLoading(false);
+    };
+
+    fetchGalleryImages();
+  }, []);
+
+  // Use database images if available, otherwise use fallback
+  const images = dbImages.length > 0 
+    ? dbImages.map(img => img.image_url) 
+    : fallbackImages;
+
+  // Don't render if no images
+  if (!isLoading && images.length === 0) {
+    return null;
+  }
+
   return (
     <div className={`columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4 ${className}`}>
       {images.map((image, index) => (
