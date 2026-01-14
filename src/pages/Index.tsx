@@ -10,19 +10,9 @@ import MasonryGallery from "@/components/animations/MasonryGallery";
 import HoverCard3D from "@/components/animations/HoverCard3D";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Model images (for gallery sections)
+// Model images (for intro section)
 import model1 from "@/assets/model-1.png";
 import model2 from "@/assets/model-2.png";
-import model3 from "@/assets/model-3.png";
-import model4 from "@/assets/model-4.png";
-
-// Product images (pants)
-import pants1 from "@/assets/pants-1.jpg";
-import pants2 from "@/assets/pants-2.jpg";
-import pants3 from "@/assets/pants-3.jpg";
-import pants4 from "@/assets/pants-4.jpg";
-import pants5 from "@/assets/pants-5.jpg";
-import pants6 from "@/assets/pants-6.jpg";
 
 const Index = () => {
   const { t } = useLanguage();
@@ -33,10 +23,6 @@ const Index = () => {
     { icon: Users, title: "Grooms-wear" },
     { icon: Star, title: "Corporate Orders" },
   ];
-
-  const heroImages = [model1, model2, model3, model4];
-  // Fallback images for galleries (used if no DB images)
-  const fallbackGalleryImages = [pants1, pants2, pants3, pants4, pants5, pants6];
 
   return (
     <Layout>
@@ -82,7 +68,7 @@ const Index = () => {
 
       {/* Sliding Gallery - Left */}
       <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery fallbackImages={fallbackGalleryImages} direction="left" speed={60} />
+        <SlidingGallery direction="left" speed={60} />
       </section>
 
       {/* Intro Section with 3D Cards */}
@@ -145,7 +131,7 @@ const Index = () => {
             </p>
           </ScrollReveal>
           
-          <FlowerBloom fallbackImages={fallbackGalleryImages} />
+          <FlowerBloom />
         </div>
       </section>
 
@@ -205,7 +191,7 @@ const Index = () => {
           </ScrollReveal>
 
           <Link to="/shop">
-            <MasonryGallery fallbackImages={fallbackGalleryImages} />
+            <MasonryGallery />
           </Link>
           
           <ScrollReveal animation="fade-up" delay={200} className="text-center mt-8 md:mt-12">
@@ -221,16 +207,11 @@ const Index = () => {
 
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-brown text-primary-foreground relative overflow-hidden">
-        {/* Background decorative images */}
-        <div className="absolute inset-0 opacity-10">
-          <img src={pants1} alt="" className="w-full h-full object-cover" />
-        </div>
-        
+      <section className="py-16 md:py-24 bg-background relative overflow-hidden">
         <div className="container text-center relative z-10 px-4">
           <ScrollReveal animation="fade-up">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-semibold mb-4 md:mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-semibold mb-4 md:mb-6 text-charcoal">
                 Ready to Define Your Style?
               </h2>
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
