@@ -35,8 +35,8 @@ const Index = () => {
   ];
 
   const heroImages = [model1, model2, model3, model4];
-  const slidingImages1 = [pants1, pants2, pants3, pants4, pants5, pants6];
-  const slidingImages2 = [pants6, pants5, pants4, pants3, pants2, pants1];
+  // Fallback images for sliding gallery (used if no DB images)
+  const fallbackSlidingImages = [pants1, pants2, pants3, pants4, pants5, pants6];
   const flowerImages = [model1, pants1, model2, pants2, model3, pants3, model4];
   const masonryImages = [pants1, model1, pants2, model2, pants3, model3, pants4, pants5];
 
@@ -84,7 +84,7 @@ const Index = () => {
 
       {/* Sliding Gallery - Left */}
       <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery images={slidingImages1} direction="left" speed={60} />
+        <SlidingGallery fallbackImages={fallbackSlidingImages} direction="left" speed={60} />
       </section>
 
       {/* Intro Section with 3D Cards */}
@@ -153,7 +153,7 @@ const Index = () => {
 
       {/* Sliding Gallery - Right */}
       <section className="py-6 md:py-8 bg-brown overflow-hidden">
-        <SlidingGallery images={slidingImages2} direction="right" speed={50} />
+        <SlidingGallery fallbackImages={[...fallbackSlidingImages].reverse()} direction="right" speed={50} />
       </section>
 
       {/* Services Preview */}
@@ -227,7 +227,7 @@ const Index = () => {
 
       {/* Another Sliding Gallery */}
       <section className="py-6 md:py-8 bg-charcoal overflow-hidden">
-        <SlidingGallery images={[...slidingImages1].reverse()} direction="left" speed={55} />
+        <SlidingGallery fallbackImages={fallbackSlidingImages} direction="left" speed={55} />
       </section>
 
       {/* CTA Section */}
