@@ -11,7 +11,8 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 pt-20">{children}</main>
+      {/* pt accounts for announcement bar (~36px) + navbar (~80px) */}
+      <main className="flex-1 pt-[116px] md:pt-[124px]">{children}</main>
       <Footer />
       <WhatsAppButton />
     </div>
