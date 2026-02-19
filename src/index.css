@@ -9,32 +9,33 @@
 
 @layer base {
   :root {
-    --background: 30 15% 96%;
+    /* Beige as the primary background */
+    --background: 38 28% 90%;
     --foreground: 0 0% 10%;
 
-    --card: 30 20% 98%;
+    --card: 38 25% 92%;
     --card-foreground: 0 0% 10%;
 
-    --popover: 30 20% 98%;
+    --popover: 38 25% 92%;
     --popover-foreground: 0 0% 10%;
 
     --primary: 0 0% 10%;
-    --primary-foreground: 30 15% 96%;
+    --primary-foreground: 38 28% 90%;
 
-    --secondary: 30 15% 90%;
+    --secondary: 38 20% 84%;
     --secondary-foreground: 0 0% 10%;
 
-    --muted: 30 10% 92%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 38 18% 86%;
+    --muted-foreground: 0 0% 38%;
 
     --accent: 35 60% 45%;
-    --accent-foreground: 30 15% 96%;
+    --accent-foreground: 38 28% 90%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 30 15% 85%;
-    --input: 30 15% 85%;
+    --border: 38 18% 80%;
+    --input: 38 18% 80%;
     --ring: 35 60% 45%;
 
     --radius: 0.5rem;
@@ -42,7 +43,7 @@
     /* Custom tokens */
     --gold: 35 60% 50%;
     --gold-light: 40 50% 70%;
-    --cream: 30 30% 95%;
+    --cream: 40 32% 87%;
     --charcoal: 0 0% 12%;
     --charcoal-light: 0 0% 20%;
     --brown: 25 40% 30%;
@@ -51,14 +52,14 @@
     --font-heading: "Montserrat", sans-serif;
     --font-body: "Montserrat", sans-serif;
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 38 28% 92%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent: 38 20% 86%;
     --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-border: 38 18% 82%;
+    --sidebar-ring: 35 60% 45%;
   }
 
   .dark {
