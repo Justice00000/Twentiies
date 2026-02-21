@@ -8,7 +8,9 @@ import { supabase } from "@/integrations/supabase/client";
 import ProductForm from "@/components/admin/ProductForm";
 import ProductTable from "@/components/admin/ProductTable";
 import GalleryManager from "@/components/admin/GalleryManager";
-import { Plus, LogOut, Package, ShoppingBag, Image } from "lucide-react";
+import CategoryManager from "@/components/admin/CategoryManager";
+import SectionImageManager from "@/components/admin/SectionImageManager";
+import { Plus, LogOut, Package, ShoppingBag, Image, Tags, LayoutGrid } from "lucide-react";
 
 interface Product {
   id: string;
@@ -27,79 +29,41 @@ const Admin = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [showForm, setShowForm] = useState(false);
-  const [showGallery, setShowGallery] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [activeTab, setActiveTab] = useState("products");
 
   useEffect(() => {
-    if (!isLoading && !isAdmin) {
-      navigate("/auth");
-    }
+    if (!isLoading && !isAdmin) navigate("/auth");
   }, [isAdmin, isLoading, navigate]);
 
   useEffect(() => {
-    if (isAdmin) {
-      fetchProducts();
-    }
+    if (isAdmin) fetchProducts();
   }, [isAdmin]);
 
   const fetchProducts = async () => {
     setLoadingProducts(true);
     const { data, error } = await supabase
       .from("products")
-      .select(`
-        *,
-        product_sizes (size, in_stock),
-        product_images (id, image_url)
-      `)
+      .select(`*, product_sizes (size, in_stock), product_images (id, image_url)`)
       .order("created_at", { ascending: false });
-
-    if (!error && data) {
-      setProducts(data);
-    }
+    if (!error && data) setProducts(data);
     setLoadingProducts(false);
   };
 
-  const handleEdit = (product: Product) => {
-    setEditingProduct(product);
-    setShowForm(true);
-  };
+  const handleEdit = (product: Product) => { setEditingProduct(product); setShowForm(true); };
+  const handleFormSuccess = () => { setShowForm(false); setEditingProduct(null); fetchProducts(); };
+  const handleFormCancel = () => { setShowForm(false); setEditingProduct(null); };
+  const handleSignOut = async () => { await signOut(); navigate("/"); };
 
-  const handleFormSuccess = () => {
-    setShowForm(false);
-    setEditingProduct(null);
-    fetchProducts();
-  };
-
-  const handleFormCancel = () => {
-    setShowForm(false);
-    setEditingProduct(null);
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate("/");
-  };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    );
-  }
-
-  if (!isAdmin) {
-    return null;
-  }
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center bg-background"><p className="text-muted-foreground">Loading...</p></div>;
+  if (!isAdmin) return null;
 
   const totalProducts = products.length;
   const inStockProducts = products.filter((p) => p.in_stock).length;
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b bg-card">
         <div className="container py-4 flex items-center justify-between">
           <div>
@@ -107,8 +71,7 @@ const Admin = () => {
             <p className="text-sm text-muted-foreground">{user?.email}</p>
           </div>
           <Button variant="outline" onClick={handleSignOut}>
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
+            <LogOut className="h-4 w-4 mr-2" /> Sign Out
           </Button>
         </div>
       </header>
@@ -118,110 +81,73 @@ const Admin = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total Products
-              </CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Total Products</CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-heading font-semibold">{totalProducts}</p>
-            </CardContent>
+            <CardContent><p className="text-3xl font-heading font-semibold">{totalProducts}</p></CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                In Stock
-              </CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">In Stock</CardTitle>
               <ShoppingBag className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-heading font-semibold text-green-600">
-                {inStockProducts}
-              </p>
-            </CardContent>
+            <CardContent><p className="text-3xl font-heading font-semibold text-green-600">{inStockProducts}</p></CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Out of Stock
-              </CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Out of Stock</CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-heading font-semibold text-destructive">
-                {totalProducts - inStockProducts}
-              </p>
-            </CardContent>
+            <CardContent><p className="text-3xl font-heading font-semibold text-destructive">{totalProducts - inStockProducts}</p></CardContent>
           </Card>
         </div>
 
-        {/* Tabs for Products and Gallery */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList>
-            <TabsTrigger value="products">
-              <Package className="h-4 w-4 mr-2" />
-              Products
-            </TabsTrigger>
-            <TabsTrigger value="gallery">
-              <Image className="h-4 w-4 mr-2" />
-              Gallery
-            </TabsTrigger>
+          <TabsList className="flex-wrap h-auto gap-1">
+            <TabsTrigger value="products"><Package className="h-4 w-4 mr-2" />Products</TabsTrigger>
+            <TabsTrigger value="categories"><Tags className="h-4 w-4 mr-2" />Categories</TabsTrigger>
+            <TabsTrigger value="gallery"><Image className="h-4 w-4 mr-2" />Gallery</TabsTrigger>
+            <TabsTrigger value="sections"><LayoutGrid className="h-4 w-4 mr-2" />Site Sections</TabsTrigger>
           </TabsList>
 
           <TabsContent value="products" className="space-y-4 mt-4">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-heading font-semibold">Products</h2>
               {!showForm && (
-                <Button onClick={() => setShowForm(true)}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Product
-                </Button>
+                <Button onClick={() => setShowForm(true)}><Plus className="h-4 w-4 mr-2" />Add Product</Button>
               )}
             </div>
-
             {showForm ? (
-              <Card>
-                <CardContent className="pt-6">
-                  <ProductForm
-                    onSuccess={handleFormSuccess}
-                    onCancel={handleFormCancel}
-                    initialData={
-                      editingProduct
-                        ? {
-                            id: editingProduct.id,
-                            name: editingProduct.name,
-                            category: editingProduct.category,
-                            price: editingProduct.price,
-                            currency: editingProduct.currency,
-                            image_url: editingProduct.image_url,
-                            in_stock: editingProduct.in_stock,
-                            sizes: editingProduct.product_sizes,
-                            additional_images: editingProduct.product_images,
-                          }
-                        : undefined
-                    }
-                  />
-                </CardContent>
-              </Card>
+              <Card><CardContent className="pt-6">
+                <ProductForm
+                  onSuccess={handleFormSuccess}
+                  onCancel={handleFormCancel}
+                  initialData={editingProduct ? {
+                    id: editingProduct.id, name: editingProduct.name, category: editingProduct.category,
+                    price: editingProduct.price, currency: editingProduct.currency, image_url: editingProduct.image_url,
+                    in_stock: editingProduct.in_stock, sizes: editingProduct.product_sizes, additional_images: editingProduct.product_images,
+                  } : undefined}
+                />
+              </CardContent></Card>
             ) : loadingProducts ? (
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">Loading products...</p>
-              </div>
+              <div className="text-center py-8"><p className="text-muted-foreground">Loading products...</p></div>
             ) : (
-              <ProductTable
-                products={products}
-                onEdit={handleEdit}
-                onRefresh={fetchProducts}
-              />
+              <ProductTable products={products} onEdit={handleEdit} onRefresh={fetchProducts} />
             )}
           </TabsContent>
 
+          <TabsContent value="categories" className="mt-4">
+            <Card><CardContent className="pt-6"><CategoryManager /></CardContent></Card>
+          </TabsContent>
+
           <TabsContent value="gallery" className="mt-4">
-            <Card>
-              <CardContent className="pt-6">
-                <GalleryManager onClose={() => setActiveTab("products")} />
-              </CardContent>
-            </Card>
+            <Card><CardContent className="pt-6">
+              <GalleryManager onClose={() => setActiveTab("products")} />
+            </CardContent></Card>
+          </TabsContent>
+
+          <TabsContent value="sections" className="mt-4">
+            <Card><CardContent className="pt-6"><SectionImageManager /></CardContent></Card>
           </TabsContent>
         </Tabs>
       </main>
