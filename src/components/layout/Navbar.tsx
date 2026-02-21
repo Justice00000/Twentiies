@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ShoppingCart, Search } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -52,10 +52,15 @@ const Navbar = () => {
       {/* Main Navbar */}
       <nav className="bg-charcoal border-b border-charcoal-light/30">
         <div className="container mx-auto">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Left nav links - desktop */}
+          <div className="flex items-center h-16 md:h-20">
+            {/* Logo - far left */}
+            <Link to="/" className="flex items-center flex-shrink-0 mr-8">
+              <img src={logo} alt="Twentiies" className="h-20 md:h-24 w-auto" />
+            </Link>
+
+            {/* Nav links - desktop, after logo */}
             <div className="hidden lg:flex items-center gap-8 flex-1">
-              {navLinks.slice(0, 3).map((link) => (
+              {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -69,25 +74,8 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Logo - centered */}
-            <Link to="/" className="flex items-center justify-center flex-shrink-0 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
-              <img src={logo} alt="Twentiies" className="h-24 md:h-28 w-auto" />
-            </Link>
-
-            {/* Right nav links + actions - desktop */}
-            <div className="hidden lg:flex items-center gap-8 flex-1 justify-end">
-              {navLinks.slice(3).map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={cn(
-                    "text-xs font-medium tracking-widest uppercase transition-colors hover:text-gold",
-                    location.pathname === link.path ? "text-gold" : "text-primary-foreground/80"
-                  )}
-                >
-                  {link.name}
-                </Link>
-              ))}
+            {/* Right actions - desktop */}
+            <div className="hidden lg:flex items-center gap-4 ml-auto">
               <LanguageToggle />
               <Link to="/cart" className="relative p-1.5 text-primary-foreground hover:text-gold transition-colors">
                 <ShoppingCart className="w-5 h-5" />

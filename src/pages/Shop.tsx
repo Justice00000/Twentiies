@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Layout from "@/components/layout/Layout";
+import ProductImageHover from "@/components/ProductImageHover";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Product {
@@ -16,39 +16,37 @@ interface Product {
   image_url: string | null;
   in_stock: boolean;
   product_sizes: { size: string; in_stock: boolean }[];
+  product_images: { id: string; image_url: string }[];
 }
-
-const categories = ["All", "Agbada", "Kaftan", "Senator", "Fabrics"];
 
 const Shop = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<string[]>(["All"]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
+
+  const fetchCategories = async () => {
+    const { data } = await supabase.from("categories").select("name").order("display_order");
+    if (data) setCategories(["All", ...data.map((c) => c.name)]);
+  };
 
   const fetchProducts = async () => {
     const { data, error } = await supabase
       .from("products")
-      .select(`
-        *,
-        product_sizes (size, in_stock)
-      `)
+      .select(`*, product_sizes (size, in_stock), product_images (id, image_url)`)
       .order("created_at", { ascending: false });
-
-    if (!error && data) {
-      setProducts(data);
-    }
+    if (!error && data) setProducts(data);
     setIsLoading(false);
   };
 
   const filteredProducts =
-    activeCategory === "All"
-      ? products
-      : products.filter((p) => p.category === activeCategory);
+    activeCategory === "All" ? products : products.filter((p) => p.category === activeCategory);
 
   const formatPrice = (price: number, currency: string) => {
     const symbol = currency === "RWF" ? "RWF " : "₦";
@@ -58,31 +56,24 @@ const Shop = () => {
   const handleAddToCart = (e: React.MouseEvent, product: Product) => {
     e.preventDefault();
     e.stopPropagation();
-    // Navigate to product detail page to select size
     navigate(`/shop/${product.id}`);
   };
 
   return (
     <Layout>
       {/* Hero */}
-      <section className="py-16 md:py-24 bg-charcoal text-primary-foreground">
+      <section className="py-12 md:py-20 bg-charcoal text-primary-foreground">
         <div className="container px-4">
           <div className="max-w-3xl animate-fade-up">
-            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
-              Our Collection
-            </span>
-            <h1 className="text-3xl md:text-6xl font-heading font-semibold mt-3 md:mt-4 mb-4 md:mb-6">
-              Shop
-            </h1>
-            <p className="text-base md:text-lg text-primary-foreground/80">
-              Curated pieces for the modern gentleman.
-            </p>
+            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">Our Collection</span>
+            <h1 className="text-3xl md:text-6xl font-heading font-semibold mt-3 md:mt-4 mb-4 md:mb-6">Shop</h1>
+            <p className="text-base md:text-lg text-primary-foreground/80">Curated pieces for the modern gentleman.</p>
           </div>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="py-4 md:py-8 border-b border-border bg-background sticky top-20 z-40">
+      <section className="py-3 md:py-6 border-b border-border bg-background sticky top-[100px] md:top-[108px] z-40">
         <div className="container px-4">
           <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
             {categories.map((category) => (
@@ -104,81 +95,63 @@ const Shop = () => {
       <section className="py-8 md:py-16 bg-background">
         <div className="container px-4">
           {isLoading ? (
-            <div className="text-center py-12 md:py-16">
-              <p className="text-muted-foreground">Loading products...</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="aspect-[3/4] bg-muted animate-pulse rounded" />
+              ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {filteredProducts.map((product, index) => (
-                <Link key={product.id} to={`/shop/${product.id}`}>
-                  <Card
-                    className="group overflow-hidden border-0 shadow-none bg-transparent animate-fade-up cursor-pointer"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <div className="aspect-[3/4] overflow-hidden bg-muted relative">
-                      {product.image_url ? (
-                        <img
-                          src={product.image_url}
-                          alt={product.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                          No image
-                        </div>
-                      )}
-                      {!product.in_stock && (
-                        <div className="absolute inset-0 bg-charcoal/60 flex items-center justify-center">
-                          <Badge variant="destructive" className="text-sm">
-                            Out of Stock
+                <Link
+                  key={product.id}
+                  to={`/shop/${product.id}`}
+                  className="group block animate-fade-up"
+                  style={{ animationDelay: `${index * 80}ms` }}
+                >
+                  <div className="aspect-[3/4] overflow-hidden bg-muted relative">
+                    <ProductImageHover
+                      mainImage={product.image_url}
+                      additionalImages={product.product_images}
+                      alt={product.name}
+                    />
+                    {!product.in_stock && (
+                      <div className="absolute inset-0 bg-charcoal/60 flex items-center justify-center z-10">
+                        <Badge variant="destructive" className="text-sm">Out of Stock</Badge>
+                      </div>
+                    )}
+                    {/* Add to Cart overlay */}
+                    {product.in_stock && (
+                      <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out bg-charcoal z-10">
+                        <button
+                          onClick={(e) => handleAddToCart(e, product)}
+                          className="w-full py-3 text-primary-foreground text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-2"
+                        >
+                          <ShoppingCart size={12} />
+                          Add to Cart
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <div className="pt-3 md:pt-4">
+                    <span className="text-xs text-muted-foreground uppercase tracking-wider">{product.category}</span>
+                    <h3 className="font-heading font-semibold text-sm md:text-base mt-1 truncate">{product.name}</h3>
+                    <p className="text-gold font-medium mt-1 text-sm md:text-base">
+                      {formatPrice(product.price, product.currency)}
+                    </p>
+                    {product.product_sizes.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {product.product_sizes.slice(0, 4).map((size) => (
+                          <Badge key={size.size} variant={size.in_stock ? "secondary" : "outline"} className="text-xs px-1.5 py-0.5">
+                            {size.size}
                           </Badge>
-                        </div>
-                      )}
-                      {/* Add to Cart Button Overlay */}
-                      {product.in_stock && (
-                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-charcoal/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <Button
-                            variant="hero"
-                            size="sm"
-                            className="w-full"
-                            onClick={(e) => handleAddToCart(e, product)}
-                          >
-                            <ShoppingCart className="w-4 h-4 mr-1" />
-                            Select & Add to Cart
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                    <CardContent className="px-0 pt-3 md:pt-4">
-                      <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                        {product.category}
-                      </span>
-                      <h3 className="font-heading font-semibold text-sm md:text-lg mt-1 truncate">
-                        {product.name}
-                      </h3>
-                      <p className="text-gold font-medium mt-1 text-sm md:text-base">
-                        {formatPrice(product.price, product.currency)}
-                      </p>
-                      {product.product_sizes.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {product.product_sizes.slice(0, 4).map((size) => (
-                            <Badge
-                              key={size.size}
-                              variant={size.in_stock ? "secondary" : "outline"}
-                              className="text-xs px-1.5 py-0.5"
-                            >
-                              {size.size}
-                            </Badge>
-                          ))}
-                          {product.product_sizes.length > 4 && (
-                            <Badge variant="outline" className="text-xs px-1.5 py-0.5">
-                              +{product.product_sizes.length - 4}
-                            </Badge>
-                          )}
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
+                        ))}
+                        {product.product_sizes.length > 4 && (
+                          <Badge variant="outline" className="text-xs px-1.5 py-0.5">+{product.product_sizes.length - 4}</Badge>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </Link>
               ))}
             </div>
@@ -195,12 +168,8 @@ const Shop = () => {
       {/* CTA */}
       <section className="py-12 md:py-16 bg-cream">
         <div className="container text-center px-4">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-heading font-semibold mb-4">
-            Ready to Order?
-          </h2>
-          <p className="text-muted-foreground mb-6 md:mb-8 max-w-md mx-auto text-sm md:text-base">
-            Place your custom order with your measurements.
-          </p>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-heading font-semibold mb-4">Ready to Order?</h2>
+          <p className="text-muted-foreground mb-6 md:mb-8 max-w-md mx-auto text-sm md:text-base">Place your custom order with your measurements.</p>
           <Link to="/order">
             <Button variant="hero" size="lg" className="group">
               Place Order

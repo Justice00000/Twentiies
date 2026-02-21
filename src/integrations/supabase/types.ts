@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       gallery_images: {
         Row: {
           created_at: string
@@ -138,6 +159,65 @@ export type Database = {
           name?: string
           price?: number
           updated_at?: string
+        }
+        Relationships: []
+      }
+      section_images: {
+        Row: {
+          alt_text: string | null
+          created_at: string
+          display_order: number
+          id: string
+          image_url: string
+          link_url: string | null
+          section_id: string
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url: string
+          link_url?: string | null
+          section_id: string
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string
+          link_url?: string | null
+          section_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "section_images_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "site_sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      site_sections: {
+        Row: {
+          created_at: string
+          id: string
+          section_key: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          section_key: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          section_key?: string
+          title?: string
         }
         Relationships: []
       }
