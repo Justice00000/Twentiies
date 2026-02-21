@@ -16,18 +16,11 @@ const Footer = () => {
   ];
 
   const servicesList = [
-<<<<<<< HEAD
-    "Bespoke Tailoring",
-    "Ready Made",
-    "Fabric Consultation",
-    "Grooms Wear",
-=======
     "Custom Tailoring",
     "Ready-Made Collection",
     "Grooms-wear",
     "Corporate Orders",
     "Fabric Consultation",
->>>>>>> bespoke/main
   ];
 
   return (
