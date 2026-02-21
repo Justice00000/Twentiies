@@ -74,8 +74,8 @@ const Index = () => {
       {/* Intro Section with 3D Cards */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container px-4">
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
-            <div className="space-y-4 md:space-y-6">
+          <div className="flex justify-center items-center">
+            <div className="space-y-4 md:space-y-6 text-center max-w-2xl">
               <ScrollReveal animation="fade-right">
                 <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
                   {t("aboutTitle")}
@@ -99,18 +99,6 @@ const Index = () => {
                   </Button>
                 </Link>
               </ScrollReveal>
-            </div>
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <Link to="/shop">
-                <HoverCard3D>
-                  <img src={model1} alt="Agbada" className="rounded-lg shadow-xl bg-cream/50" />
-                </HoverCard3D>
-              </Link>
-              <Link to="/shop" className="mt-8 md:mt-12">
-                <HoverCard3D>
-                  <img src={model2} alt="Kaftan" className="rounded-lg shadow-xl bg-cream/50" />
-                </HoverCard3D>
-              </Link>
             </div>
           </div>
         </div>
@@ -177,35 +165,6 @@ const Index = () => {
           </ScrollReveal>
         </div>
       </section>
-
-      {/* Masonry Gallery - Featured
-      <section className="py-16 md:py-24 bg-cream">
-        <div className="container px-4">
-          <ScrollReveal animation="fade-up" className="text-center mb-10 md:mb-16">
-            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">
-              {t("featuredTitle")}
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-semibold mt-3 md:mt-4 text-charcoal">
-              Style That Speaks
-            </h2>
-          </ScrollReveal>
-
-          <Link to="/shop">
-            <MasonryGallery />
-          </Link>
-          
-          <ScrollReveal animation="fade-up" delay={200} className="text-center mt-8 md:mt-12">
-            <Link to="/shop">
-              <Button variant="outline" size="lg" className="group border-charcoal text-charcoal hover:bg-charcoal hover:text-cream">
-                {t("viewAll")}
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section> */}
-
-
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-background relative overflow-hidden">
         <div className="container text-center relative z-10 px-4">

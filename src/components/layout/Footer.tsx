@@ -14,10 +14,10 @@ const Footer = () => {
   ];
 
   const servicesList = [
-    "bespokeTailoring",
-    "readyMade",
-    "fabricConsultation",
-    "groomsWear",
+    "Bespoke Tailoring",
+    "Ready Made",
+    "Fabric Consultation",
+    "Grooms Wear",
   ];
 
   return (
@@ -96,17 +96,6 @@ const Footer = () => {
           <p className="text-xs text-charcoal/50">
             © {new Date().getFullYear()} Twentiies Tailored. {t("allRightsReserved")}.
           </p>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://instagram.com/Twentiies_Tailored"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 text-charcoal hover:text-gold transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram size={20} />
-            </a>
-          </div>
         </div>
       </div>
     </footer>
