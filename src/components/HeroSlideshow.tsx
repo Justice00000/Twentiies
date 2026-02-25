@@ -34,17 +34,21 @@ const HeroSlideshow = () => {
 
   useEffect(() => {
     const fetchImages = async () => {
+      // Fetch hero section images from site_sections
+      const { data: sections } = await supabase.from("site_sections").select("id").eq("section_key", "hero_slider").single();
+      if (!sections) return;
       const { data, error } = await supabase
-        .from("gallery_images")
-        .select("*")
+        .from("section_images")
+        .select("id, image_url, alt_text, display_order")
+        .eq("section_id", sections.id)
         .order("display_order", { ascending: true })
         .limit(5);
 
       if (!error && data && data.length > 0) {
         setSlides(
-          data.map((img: GalleryImage, i: number) => ({
+          data.map((img: any, i: number) => ({
             image: img.image_url,
-            tagline: img.title || FALLBACK_SLIDES[i % FALLBACK_SLIDES.length].tagline,
+            tagline: img.alt_text || FALLBACK_SLIDES[i % FALLBACK_SLIDES.length].tagline,
           }))
         );
       }
@@ -84,7 +88,7 @@ const HeroSlideshow = () => {
             alt={`Slide ${i + 1}`}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/40 to-transparent" />
         </div>
       ))}
 
