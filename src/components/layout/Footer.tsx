@@ -35,7 +35,7 @@ const Footer = () => {
               {t("footerTagline")}
             </p>
             <a
-              href="https://instagram.com/Twentiies_Tailored"
+              href="https://instagram.com/Twentiies_"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-muted-foreground hover:text-gold transition-colors"
