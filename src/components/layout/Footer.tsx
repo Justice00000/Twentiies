@@ -24,21 +24,21 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-foreground text-background">
+    <footer className="bg-secondary text-foreground">
       {/* Top section */}
       <div className="container mx-auto py-16 px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="space-y-5">
-            <img src={logo} alt="Twentiies" className="h-28 w-auto brightness-200" />
-            <p className="text-xs text-background/60 leading-relaxed tracking-wide">
+            <img src={logo} alt="Twentiies" className="h-28 w-auto" />
+            <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
               {t("footerTagline")}
             </p>
             <a
               href="https://instagram.com/Twentiies_Tailored"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-background/60 hover:text-gold transition-colors"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-gold transition-colors"
               aria-label="Instagram"
             >
               <Instagram size={18} />
@@ -47,7 +47,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-5">
-            <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-background">
+            <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground">
               Navigation
             </h4>
             <nav className="flex flex-col gap-2.5">
@@ -55,7 +55,7 @@ const Footer = () => {
                 <Link
                   key={link.key}
                   to={link.path}
-                  className="text-xs text-background/60 hover:text-gold transition-colors tracking-wide"
+                  className="text-xs text-muted-foreground hover:text-gold transition-colors tracking-wide"
                 >
                   {t(link.key)}
                 </Link>
@@ -65,12 +65,12 @@ const Footer = () => {
 
           {/* Services */}
           <div className="space-y-5">
-            <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-background">
+            <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground">
               {t("services")}
             </h4>
             <div className="flex flex-col gap-2.5">
               {servicesList.map((service) => (
-                <span key={service} className="text-xs text-background/60 tracking-wide">
+                <span key={service} className="text-xs text-muted-foreground tracking-wide">
                   {service}
                 </span>
               ))}
@@ -79,13 +79,13 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-5">
-            <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-background">
+            <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground">
               {t("contactUs")}
             </h4>
             <div className="flex flex-col gap-3">
               <a
                 href="tel:+250792417246"
-                className="flex items-center gap-2 text-xs text-background/60 hover:text-gold transition-colors"
+                className="flex items-center gap-2 text-xs text-muted-foreground hover:text-gold transition-colors"
               >
                 <Phone size={14} />
                 +250 792 417 246
@@ -94,12 +94,12 @@ const Footer = () => {
                 href="https://instagram.com/Twentiies_Tailored"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-background/60 hover:text-gold transition-colors"
+                className="flex items-center gap-2 text-xs text-muted-foreground hover:text-gold transition-colors"
               >
                 <Instagram size={14} />
                 @Twentiies_Tailored
               </a>
-              <span className="flex items-center gap-2 text-xs text-background/60">
+              <span className="flex items-center gap-2 text-xs text-muted-foreground">
                 <MapPin size={14} />
                 Kigali, Rwanda
               </span>
@@ -109,12 +109,12 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-background/10">
+      <div className="border-t border-border">
         <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-[10px] text-background/40 tracking-widest uppercase">
+          <p className="text-[10px] text-muted-foreground tracking-widest uppercase">
             © {new Date().getFullYear()} Twentiies Tailored. All Rights Reserved.
           </p>
-          <p className="text-[10px] text-background/30 tracking-wider uppercase">
+          <p className="text-[10px] text-muted-foreground/60 tracking-wider uppercase">
             Kigali, Rwanda
           </p>
         </div>

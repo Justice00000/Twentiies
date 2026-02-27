@@ -96,7 +96,7 @@ const Index = () => {
   return (
     <Layout>
       {/* ── HERO ── */}
-      <section className="relative h-[88vh] md:h-screen bg-charcoal overflow-hidden">
+      <section className="relative h-[88vh] md:h-screen bg-secondary overflow-hidden">
         <HeroSlideshow />
       </section>
 
@@ -107,7 +107,7 @@ const Index = () => {
             <Link key={i} to="/shop" className="block overflow-hidden group relative">
               <div className="aspect-[3/4] overflow-hidden">
                 <img src={img} alt={`Collection ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-all duration-500" />
+                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/20 transition-all duration-500" />
               </div>
             </Link>
           ))}
@@ -131,9 +131,9 @@ const Index = () => {
                   <Link to="/shop" className="group block">
                     <div className="relative overflow-hidden aspect-[3/4] bg-muted">
                       <img src={catImg} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-foreground/25 group-hover:bg-foreground/50 transition-all duration-500" />
+                      <div className="absolute inset-0 bg-background/25 group-hover:bg-background/50 transition-all duration-500" />
                       <div className="absolute bottom-0 left-0 right-0 p-4">
-                        <h3 className="text-background text-[11px] font-bold tracking-[0.3em] uppercase">{cat.name}</h3>
+                        <h3 className="text-foreground text-[11px] font-bold tracking-[0.3em] uppercase">{cat.name}</h3>
                       </div>
                     </div>
                   </Link>
@@ -179,14 +179,14 @@ const Index = () => {
                       />
                       {/* Sale badge */}
                       <div className="absolute top-3 left-3 z-10">
-                        <span className="bg-foreground text-background text-[9px] font-bold tracking-widest px-2 py-1 uppercase">Sale</span>
+                        <span className="bg-accent text-accent-foreground text-[9px] font-bold tracking-widest px-2 py-1 uppercase">Sale</span>
                       </div>
                       {/* Quick add */}
                       <div
-                        className="absolute bottom-0 left-0 right-0 bg-foreground transition-transform duration-300 ease-out z-10"
+                        className="absolute bottom-0 left-0 right-0 bg-secondary transition-transform duration-300 ease-out z-10"
                         style={{ transform: hoveredProduct === product.id ? "translateY(0)" : "translateY(100%)" }}
                       >
-                        <div className="w-full py-3 text-background text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-2">
+                        <div className="w-full py-3 text-foreground text-[10px] font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-2">
                           <ShoppingCart size={12} /> Add to Cart
                         </div>
                       </div>
@@ -209,7 +209,7 @@ const Index = () => {
           <ScrollReveal animation="fade-up" delay={200} className="text-center mt-12">
             <Link
               to="/shop"
-              className="inline-flex items-center gap-2 border border-foreground text-foreground text-[11px] font-bold tracking-[0.3em] uppercase px-10 py-3.5 hover:bg-foreground hover:text-background transition-all duration-300 group"
+              className="inline-flex items-center gap-2 border border-foreground text-foreground text-[11px] font-bold tracking-[0.3em] uppercase px-10 py-3.5 hover:bg-accent hover:text-accent-foreground transition-all duration-300 group"
             >
               View All Products
               <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
@@ -221,10 +221,10 @@ const Index = () => {
       {/* ── FULL-WIDTH BANNER ── */}
       <section className="relative h-[55vh] md:h-[65vh] overflow-hidden">
         <img src={bannerImage || model4} alt="Premium Collection" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-foreground/65 flex flex-col items-center justify-center text-center px-4">
+        <div className="absolute inset-0 bg-background/75 flex flex-col items-center justify-center text-center px-4">
           <ScrollReveal animation="fade-up">
             <p className="text-gold text-[10px] tracking-[0.5em] uppercase mb-4">Bespoke Tailoring</p>
-            <h2 className="text-3xl md:text-5xl font-heading font-semibold text-background mb-8 max-w-2xl leading-tight">
+            <h2 className="text-3xl md:text-5xl font-heading font-semibold text-foreground mb-8 max-w-2xl leading-tight">
               Crafted to Your Exact Measurements
             </h2>
             <Link to="/order" className="inline-block bg-gold text-foreground text-[11px] font-bold tracking-[0.3em] uppercase px-10 py-3.5 hover:bg-gold/90 transition-colors duration-300">
@@ -260,7 +260,7 @@ const Index = () => {
       </section>
 
       {/* ── CTA STRIP ── */}
-      <section className="py-16 md:py-24 bg-foreground text-background text-center">
+      <section className="py-16 md:py-24 bg-secondary text-foreground text-center">
         <ScrollReveal animation="fade-up">
           <div className="container px-4">
             <p className="text-gold text-[10px] tracking-[0.5em] uppercase mb-4">Get Started</p>
@@ -273,7 +273,7 @@ const Index = () => {
                 href="https://wa.me/250792417246"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block border border-background/30 text-background text-[11px] font-bold tracking-[0.3em] uppercase px-10 py-3.5 hover:border-gold hover:text-gold transition-all duration-300"
+                className="inline-block border border-foreground/30 text-foreground text-[11px] font-bold tracking-[0.3em] uppercase px-10 py-3.5 hover:border-gold hover:text-gold transition-all duration-300"
               >
                 Chat on WhatsApp
               </a>
