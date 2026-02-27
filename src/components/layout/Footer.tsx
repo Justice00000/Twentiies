@@ -91,13 +91,13 @@ const Footer = () => {
                 +250 792 417 246
               </a>
               <a
-                href="https://instagram.com/Twentiies_Tailored"
+                href="https://instagram.com/Twentiies_"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-xs text-muted-foreground hover:text-gold transition-colors"
               >
                 <Instagram size={14} />
-                @Twentiies_Tailored
+                @Twentiies_
               </a>
               <span className="flex items-center gap-2 text-xs text-muted-foreground">
                 <MapPin size={14} />
