@@ -50,7 +50,7 @@ const Navbar = () => {
       </div>
 
       {/* Main Navbar */}
-      <nav className="bg-foreground border-b border-muted-foreground/20">
+      <nav className="bg-background border-b border-border">
         <div className="container mx-auto">
           <div className="flex items-center h-16 md:h-20">
             {/* Logo - far left */}
@@ -66,7 +66,7 @@ const Navbar = () => {
                   to={link.path}
                   className={cn(
                     "text-xs font-medium tracking-widest uppercase transition-colors hover:text-gold",
-                    location.pathname === link.path ? "text-gold" : "text-background/80"
+                    location.pathname === link.path ? "text-gold" : "text-foreground/80"
                   )}
                 >
                   {link.name}
@@ -77,7 +77,7 @@ const Navbar = () => {
             {/* Right actions - desktop */}
             <div className="hidden lg:flex items-center gap-4 ml-auto">
               <LanguageToggle />
-              <Link to="/cart" className="relative p-1.5 text-background hover:text-gold transition-colors">
+              <Link to="/cart" className="relative p-1.5 text-foreground hover:text-gold transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 {totalItems > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-gold text-foreground text-xs font-bold rounded-full flex items-center justify-center text-[10px]">
@@ -90,7 +90,7 @@ const Navbar = () => {
             {/* Mobile actions */}
             <div className="lg:hidden flex items-center gap-1 ml-auto">
               <LanguageToggle />
-              <Link to="/cart" className="relative p-2 text-background hover:text-gold transition-colors">
+              <Link to="/cart" className="relative p-2 text-foreground hover:text-gold transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 {totalItems > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-gold text-foreground text-xs font-bold rounded-full flex items-center justify-center text-[10px]">
@@ -100,7 +100,7 @@ const Navbar = () => {
               </Link>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 text-background hover:text-gold transition-colors"
+                className="p-2 text-foreground hover:text-gold transition-colors"
                 aria-label="Toggle menu"
               >
                 {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -110,7 +110,7 @@ const Navbar = () => {
 
           {/* Mobile Navigation */}
           {isOpen && (
-            <div className="lg:hidden py-4 border-t border-muted-foreground/20 animate-fade-in">
+            <div className="lg:hidden py-4 border-t border-border animate-fade-in">
               <div className="flex flex-col gap-1">
                 {navLinks.map((link) => (
                   <Link
@@ -118,8 +118,8 @@ const Navbar = () => {
                     to={link.path}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "text-xs font-medium tracking-widest uppercase transition-colors hover:text-gold py-3 px-2 border-b border-muted-foreground/10",
-                      location.pathname === link.path ? "text-gold" : "text-background/80"
+                      "text-xs font-medium tracking-widest uppercase transition-colors hover:text-gold py-3 px-2 border-b border-border",
+                      location.pathname === link.path ? "text-gold" : "text-foreground/80"
                     )}
                   >
                     {link.name}
