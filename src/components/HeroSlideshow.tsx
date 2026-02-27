@@ -88,14 +88,14 @@ const HeroSlideshow = () => {
             alt={`Slide ${i + 1}`}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
         </div>
       ))}
 
       {/* Text overlay bottom-left */}
       <div className="absolute bottom-16 left-8 md:left-16 max-w-sm z-10">
         <p
-          className="text-primary-foreground text-sm md:text-base font-medium tracking-widest uppercase leading-relaxed transition-all duration-500"
+          className="text-foreground text-sm md:text-base font-medium tracking-widest uppercase leading-relaxed transition-all duration-500"
           key={current}
           style={{ animation: "fadeSlideUp 0.6s ease-out both" }}
         >
@@ -106,14 +106,14 @@ const HeroSlideshow = () => {
       {/* Prev/Next Arrows */}
       <button
         onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-primary-foreground hover:text-gold transition-colors"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-foreground hover:text-gold transition-colors"
         aria-label="Previous slide"
       >
         <ChevronLeft size={32} strokeWidth={1.5} />
       </button>
       <button
         onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-primary-foreground hover:text-gold transition-colors"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-foreground hover:text-gold transition-colors"
         aria-label="Next slide"
       >
         <ChevronRight size={32} strokeWidth={1.5} />
@@ -126,7 +126,7 @@ const HeroSlideshow = () => {
             key={i}
             onClick={() => goTo(i)}
             className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-              i === current ? "bg-gold w-6" : "bg-primary-foreground/50"
+              i === current ? "bg-gold w-6" : "bg-foreground/50"
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />
