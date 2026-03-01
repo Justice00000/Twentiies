@@ -55,12 +55,12 @@ const Navbar = () => {
       {/* Announcement Bar — sleek gold ribbon */}
       <div
         className={cn(
-          "bg-foreground text-background overflow-hidden transition-all duration-500",
+          "bg-accent text-accent-foreground overflow-hidden transition-all duration-500",
           scrolled ? "h-0 opacity-0" : "h-9 opacity-100"
         )}
       >
         <div className="h-full flex items-center justify-between px-4 md:px-8">
-          <button onClick={prevAnnouncement} className="text-background/60 hover:text-background transition-colors" aria-label="Previous">
+          <button onClick={prevAnnouncement} className="text-accent-foreground/60 hover:text-accent-foreground transition-colors" aria-label="Previous">
             <ChevronLeft size={14} />
           </button>
           <span
@@ -69,7 +69,7 @@ const Navbar = () => {
           >
             {ANNOUNCEMENT_MESSAGES[announcementIndex]}
           </span>
-          <button onClick={nextAnnouncement} className="text-background/60 hover:text-background transition-colors" aria-label="Next">
+          <button onClick={nextAnnouncement} className="text-accent-foreground/60 hover:text-accent-foreground transition-colors" aria-label="Next">
             <ChevronRight size={14} />
           </button>
         </div>
@@ -92,7 +92,7 @@ const Navbar = () => {
                 src={logo}
                 alt="Twentiies"
                 className={cn(
-                  "w-auto transition-all duration-500 brightness-[10]",
+                  "w-auto transition-all duration-500",
                   scrolled ? "h-20 md:h-24" : "h-28 md:h-32"
                 )}
               />
