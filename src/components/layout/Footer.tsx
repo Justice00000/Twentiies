@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Phone, MapPin } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -30,19 +30,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="space-y-5">
-            <img src={logo} alt="Twentiies" className="h-28 w-auto" />
+            <img src={logo} alt="Twentiies" className="h-16 w-auto" />
             <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
               {t("footerTagline")}
             </p>
-            <a
-              href="https://instagram.com/Twentiies_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-gold transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram size={18} />
-            </a>
           </div>
 
           {/* Quick Links */}
@@ -90,15 +81,6 @@ const Footer = () => {
                 <Phone size={14} />
                 +250 792 417 246
               </a>
-              <a
-                href="https://instagram.com/Twentiies_"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-muted-foreground hover:text-gold transition-colors"
-              >
-                <Instagram size={14} />
-                @Twentiies_
-              </a>
               <span className="flex items-center gap-2 text-xs text-muted-foreground">
                 <MapPin size={14} />
                 Kigali, Rwanda
@@ -114,6 +96,12 @@ const Footer = () => {
           <p className="text-[10px] text-muted-foreground tracking-widest uppercase">
             © {new Date().getFullYear()} Twentiies Tailored. All Rights Reserved.
           </p>
+          <Link
+            to="/refund-policy"
+            className="text-[10px] text-muted-foreground hover:text-accent transition-colors tracking-widest uppercase"
+          >
+            Returns & Refund Policy
+          </Link>
           <p className="text-[10px] text-muted-foreground/60 tracking-wider uppercase">
             Kigali, Rwanda
           </p>

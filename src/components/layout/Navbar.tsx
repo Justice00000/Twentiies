@@ -80,8 +80,8 @@ const Navbar = () => {
         className={cn(
           "transition-all duration-500 ease-out",
           scrolled
-            ? "bg-background/85 backdrop-blur-xl shadow-[0_1px_20px_-4px_hsl(var(--accent)/0.15)]"
-            : "bg-background"
+            ? "bg-foreground/95 backdrop-blur-xl shadow-[0_1px_20px_-4px_hsl(var(--accent)/0.15)]"
+            : "bg-foreground"
         )}
       >
         <div className="container mx-auto px-4 md:px-6">
@@ -93,7 +93,7 @@ const Navbar = () => {
                 alt="Twentiies"
                 className={cn(
                   "w-auto transition-all duration-500",
-                  scrolled ? "h-14 md:h-16" : "h-20 md:h-24"
+                  scrolled ? "h-20 md:h-24" : "h-28 md:h-32"
                 )}
               />
             </Link>
@@ -114,7 +114,7 @@ const Navbar = () => {
                     <span
                       className={cn(
                         "text-[11px] font-semibold tracking-[0.25em] uppercase transition-colors duration-300",
-                        isActive ? "text-accent" : "text-foreground/70 group-hover:text-foreground"
+                        isActive ? "text-accent" : "text-background/70 group-hover:text-background"
                       )}
                     >
                       {link.name}
@@ -137,7 +137,7 @@ const Navbar = () => {
             <div className="hidden lg:flex items-center gap-3">
               <LanguageToggle />
               {/* Cart with badge */}
-              <Link to="/cart" className="relative p-2 text-foreground/70 hover:text-accent transition-colors duration-300 group">
+              <Link to="/cart" className="relative p-2 text-background/70 hover:text-accent transition-colors duration-300 group">
                 <ShoppingCart className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                 {totalItems > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-accent text-accent-foreground text-[9px] font-bold rounded-full flex items-center justify-center px-1 animate-scale-in">
@@ -150,7 +150,7 @@ const Navbar = () => {
             {/* Mobile Actions */}
             <div className="lg:hidden flex items-center gap-1">
               <LanguageToggle />
-              <Link to="/cart" className="relative p-2 text-foreground/70 hover:text-accent transition-colors">
+              <Link to="/cart" className="relative p-2 text-background/70 hover:text-accent transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 {totalItems > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-accent text-accent-foreground text-[9px] font-bold rounded-full flex items-center justify-center px-1">
@@ -160,7 +160,7 @@ const Navbar = () => {
               </Link>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 text-foreground/70 hover:text-accent transition-colors relative"
+                className="p-2 text-background/70 hover:text-accent transition-colors relative"
                 aria-label="Toggle menu"
               >
                 <div className="relative w-5 h-5 flex items-center justify-center">
@@ -186,7 +186,7 @@ const Navbar = () => {
       {/* Mobile Full-Screen Overlay Menu */}
       <div
         className={cn(
-          "lg:hidden fixed inset-x-0 bg-background/95 backdrop-blur-xl transition-all duration-500 ease-out overflow-hidden",
+          "lg:hidden fixed inset-x-0 bg-foreground/95 backdrop-blur-xl transition-all duration-500 ease-out overflow-hidden",
           isOpen ? "top-[calc(4rem+2.25rem)] bottom-0 opacity-100" : "top-[calc(4rem+2.25rem)] bottom-full opacity-0 pointer-events-none",
           scrolled && "top-16"
         )}
@@ -205,7 +205,7 @@ const Navbar = () => {
                 <span
                   className={cn(
                     "text-lg font-semibold tracking-[0.3em] uppercase transition-colors duration-300",
-                    isActive ? "text-accent" : "text-foreground/60 group-hover:text-foreground"
+                    isActive ? "text-accent" : "text-background/60 group-hover:text-background"
                   )}
                 >
                   {link.name}
