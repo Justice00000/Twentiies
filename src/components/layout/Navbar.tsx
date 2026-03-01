@@ -93,7 +93,7 @@ const Navbar = () => {
                 alt="Twentiies"
                 className={cn(
                   "w-auto transition-all duration-500",
-                  scrolled ? "h-14 md:h-16" : "h-20 md:h-24"
+                  scrolled ? "h-20 md:h-24" : "h-28 md:h-32"
                 )}
               />
             </Link>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Phone, MapPin } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -30,19 +30,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="space-y-5">
-            <img src={logo} alt="Twentiies" className="h-28 w-auto" />
+            <img src={logo} alt="Twentiies" className="h-16 w-auto" />
             <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
               {t("footerTagline")}
             </p>
-            <a
-              href="https://instagram.com/Twentiies_Tailored"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-gold transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram size={18} />
-            </a>
           </div>
 
           {/* Quick Links */}
@@ -90,19 +81,38 @@ const Footer = () => {
                 <Phone size={14} />
                 +250 792 417 246
               </a>
-              <a
-                href="https://instagram.com/Twentiies_Tailored"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-muted-foreground hover:text-gold transition-colors"
-              >
-                <Instagram size={14} />
-                @Twentiies_Tailored
-              </a>
               <span className="flex items-center gap-2 text-xs text-muted-foreground">
                 <MapPin size={14} />
                 Kigali, Rwanda
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Privacy & Returns Policy */}
+      <div className="border-t border-border">
+        <div className="container mx-auto px-4 py-12">
+          <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground mb-6">
+            Returns & Refund Policy
+          </h4>
+          <div className="space-y-4 text-xs text-muted-foreground leading-relaxed tracking-wide max-w-3xl">
+            <p>
+              At Twentiies, we are committed to delivering high-quality, intentionally designed fashion pieces. If you are not completely satisfied with your purchase, we're here to help.
+            </p>
+            <div>
+              <p className="font-semibold text-foreground mb-1">1. Returns Eligibility</p>
+              <ul className="list-disc list-inside space-y-1 ml-1">
+                <li>Items must be returned within 7 days of delivery.</li>
+                <li>Items must be unused, unworn, unwashed, and in original condition.</li>
+                <li>Original tags and packaging must be intact.</li>
+                <li>Proof of purchase is required.</li>
+              </ul>
+              <p className="mt-2">Twentiies reserves the right to reject returns that do not meet these conditions.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-1">2. Refund Process</p>
+              <p>Once your return is received and inspected: if approved, refunds will be processed to the original payment method within 5–10 business days. Shipping fees are non-refundable unless the item received was defective or incorrect.</p>
             </div>
           </div>
         </div>
