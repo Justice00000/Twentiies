@@ -90,40 +90,18 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Privacy & Returns Policy */}
-      <div className="border-t border-border">
-        <div className="container mx-auto px-4 py-12">
-          <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground mb-6">
-            Returns & Refund Policy
-          </h4>
-          <div className="space-y-4 text-xs text-muted-foreground leading-relaxed tracking-wide max-w-3xl">
-            <p>
-              At Twentiies, we are committed to delivering high-quality, intentionally designed fashion pieces. If you are not completely satisfied with your purchase, we're here to help.
-            </p>
-            <div>
-              <p className="font-semibold text-foreground mb-1">1. Returns Eligibility</p>
-              <ul className="list-disc list-inside space-y-1 ml-1">
-                <li>Items must be returned within 7 days of delivery.</li>
-                <li>Items must be unused, unworn, unwashed, and in original condition.</li>
-                <li>Original tags and packaging must be intact.</li>
-                <li>Proof of purchase is required.</li>
-              </ul>
-              <p className="mt-2">Twentiies reserves the right to reject returns that do not meet these conditions.</p>
-            </div>
-            <div>
-              <p className="font-semibold text-foreground mb-1">2. Refund Process</p>
-              <p>Once your return is received and inspected: if approved, refunds will be processed to the original payment method within 5–10 business days. Shipping fees are non-refundable unless the item received was defective or incorrect.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Bottom Bar */}
       <div className="border-t border-border">
         <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-3">
           <p className="text-[10px] text-muted-foreground tracking-widest uppercase">
             © {new Date().getFullYear()} Twentiies Tailored. All Rights Reserved.
           </p>
+          <Link
+            to="/refund-policy"
+            className="text-[10px] text-muted-foreground hover:text-accent transition-colors tracking-widest uppercase"
+          >
+            Returns & Refund Policy
+          </Link>
           <p className="text-[10px] text-muted-foreground/60 tracking-wider uppercase">
             Kigali, Rwanda
           </p>
