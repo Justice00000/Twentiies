@@ -33,6 +33,7 @@ interface Product {
   currency: string;
   image_url: string | null;
   in_stock: boolean;
+  is_trending?: boolean;
   product_sizes: { size: string; in_stock: boolean }[];
   product_images: { id: string; image_url: string }[];
 }
@@ -46,6 +47,23 @@ interface ProductTableProps {
 const ProductTable = ({ products, onEdit, onRefresh }: ProductTableProps) => {
   const { toast } = useToast();
   const [updatingStock, setUpdatingStock] = useState<string | null>(null);
+  const [updatingTrending, setUpdatingTrending] = useState<string | null>(null);
+
+  const handleTrendingToggle = async (productId: string, currentTrending: boolean) => {
+    setUpdatingTrending(productId);
+    try {
+      const { error } = await supabase
+        .from("products")
+        .update({ is_trending: !currentTrending } as any)
+        .eq("id", productId);
+      if (error) throw error;
+      onRefresh();
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message || "Failed to update trending", variant: "destructive" });
+    } finally {
+      setUpdatingTrending(null);
+    }
+  };
 
   const handleStockToggle = async (productId: string, currentStock: boolean) => {
     setUpdatingStock(productId);
@@ -103,6 +121,7 @@ const ProductTable = ({ products, onEdit, onRefresh }: ProductTableProps) => {
             <TableHead>Price</TableHead>
             <TableHead>Sizes</TableHead>
             <TableHead className="text-center">In Stock</TableHead>
+            <TableHead className="text-center">Trending</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -150,6 +169,13 @@ const ProductTable = ({ products, onEdit, onRefresh }: ProductTableProps) => {
                   disabled={updatingStock === product.id}
                 />
               </TableCell>
+              <TableCell className="text-center">
+                <Switch
+                  checked={product.is_trending ?? false}
+                  onCheckedChange={() => handleTrendingToggle(product.id, product.is_trending ?? false)}
+                  disabled={updatingTrending === product.id}
+                />
+              </TableCell>
               <TableCell className="text-right">
                 <div className="flex justify-end gap-2">
                   <Button
@@ -189,7 +215,7 @@ const ProductTable = ({ products, onEdit, onRefresh }: ProductTableProps) => {
           ))}
           {products.length === 0 && (
             <TableRow>
-              <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+              <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
                 No products yet. Add your first product.
               </TableCell>
             </TableRow>
