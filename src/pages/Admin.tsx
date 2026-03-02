@@ -20,6 +20,7 @@ interface Product {
   currency: string;
   image_url: string | null;
   in_stock: boolean;
+  is_trending?: boolean;
   product_sizes: { size: string; in_stock: boolean }[];
   product_images: { id: string; image_url: string }[];
 }
