@@ -56,8 +56,8 @@ const Shop = () => {
       <section className="py-12 md:py-20 bg-charcoal text-primary-foreground">
         <div className="container px-4">
           <div className="max-w-3xl animate-fade-up">
-            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">Shop Our Collection</span>
-            <h1 className="text-3xl md:text-6xl font-heading font-semibold mt-3 md:mt-4 mb-4 md:mb-6">Shop Our Collection</h1>
+            <h1 className="text-4xl md:text-7xl font-heading font-bold text-primary-foreground">Shop</h1>
+            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm mt-3 block">Our Collection</span>
             <p className="text-base md:text-lg text-primary-foreground/80">Curated pieces for the modern gentleman.</p>
           </div>
         </div>
