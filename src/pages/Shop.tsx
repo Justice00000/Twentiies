@@ -20,21 +20,13 @@ interface Product {
 }
 
 const Shop = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
   const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<string[]>(["All"]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
-    fetchCategories();
   }, []);
-
-  const fetchCategories = async () => {
-    const { data } = await supabase.from("categories").select("name").order("display_order");
-    if (data) setCategories(["All", ...data.map((c) => c.name)]);
-  };
 
   const fetchProducts = async () => {
     const { data, error } = await supabase
@@ -45,8 +37,7 @@ const Shop = () => {
     setIsLoading(false);
   };
 
-  const filteredProducts =
-    activeCategory === "All" ? products : products.filter((p) => p.category === activeCategory);
+  const filteredProducts = products;
 
   const formatPrice = (price: number, currency: string) => {
     const symbol = currency === "RWF" ? "RWF " : "₦";
@@ -65,31 +56,13 @@ const Shop = () => {
       <section className="py-12 md:py-20 bg-charcoal text-primary-foreground">
         <div className="container px-4">
           <div className="max-w-3xl animate-fade-up">
-            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">Our Collection</span>
-            <h1 className="text-3xl md:text-6xl font-heading font-semibold mt-3 md:mt-4 mb-4 md:mb-6">Shop</h1>
+            <span className="text-gold font-medium tracking-widest uppercase text-xs md:text-sm">Shop Our Collection</span>
+            <h1 className="text-3xl md:text-6xl font-heading font-semibold mt-3 md:mt-4 mb-4 md:mb-6">Shop Our Collection</h1>
             <p className="text-base md:text-lg text-primary-foreground/80">Curated pieces for the modern gentleman.</p>
           </div>
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="py-3 md:py-6 border-b border-border bg-background sticky top-[100px] md:top-[108px] z-40">
-        <div className="container px-4">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={activeCategory === category ? "default" : "outline"}
-                size="sm"
-                onClick={() => setActiveCategory(category)}
-                className="whitespace-nowrap flex-shrink-0"
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Products Grid */}
       <section className="py-8 md:py-16 bg-background">

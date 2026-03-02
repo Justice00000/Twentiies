@@ -140,7 +140,7 @@ const SectionImageManager = () => {
                   </div>
                   <Input
                     type="file"
-                    accept="image/*"
+                    accept="image/*,video/*"
                     multiple
                     onChange={(e) => setNewFiles((prev) => ({ ...prev, [section.id]: Array.from(e.target.files || []) }))}
                     className="h-8 text-sm"
@@ -164,13 +164,26 @@ const SectionImageManager = () => {
                   <p className="text-xs text-muted-foreground text-center py-4">No images in this section</p>
                 ) : (
                   <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
-                    {images.map((img) => (
+                    {images.map((img) => {
+                      const isVideo = /\.(mp4|webm|mov|avi|mkv)$/i.test(img.image_url);
+                      return (
                       <div key={img.id} className="relative group aspect-square">
-                        <img
-                          src={img.image_url}
-                          alt={img.alt_text || "Section image"}
-                          className="w-full h-full object-cover rounded"
-                        />
+                        {isVideo ? (
+                          <video
+                            src={img.image_url}
+                            className="w-full h-full object-cover rounded"
+                            muted
+                            playsInline
+                            onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                            onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
+                          />
+                        ) : (
+                          <img
+                            src={img.image_url}
+                            alt={img.alt_text || "Section image"}
+                            className="w-full h-full object-cover rounded"
+                          />
+                        )}
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button
@@ -195,7 +208,8 @@ const SectionImageManager = () => {
                           </AlertDialogContent>
                         </AlertDialog>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </AccordionContent>
