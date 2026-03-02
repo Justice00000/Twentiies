@@ -50,7 +50,7 @@ const Index = () => {
   useEffect(() => {
     const fetchAll = async () => {
       const [productsRes, categoriesRes, sectionsRes, sectionImgsRes] = await Promise.all([
-        supabase.from("products").select("id, name, category, price, currency, image_url, in_stock, product_images (id, image_url)").order("created_at", { ascending: false }).limit(8),
+        supabase.from("products").select("id, name, category, price, currency, image_url, in_stock, product_images (id, image_url)").eq("is_trending", true).order("created_at", { ascending: false }).limit(4),
         supabase.from("categories").select("id, name").order("display_order"),
         supabase.from("site_sections").select("id, section_key"),
         supabase.from("section_images").select("id, image_url, alt_text, section_id").order("display_order"),
@@ -103,7 +103,7 @@ const Index = () => {
       {/* ── 3-COLUMN EDITORIAL PHOTO GRID ── */}
       <section className="bg-background">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-          {(editorialImages.length > 0 ? editorialImages.slice(0, 3) : [model1, model2, model3]).map((img, i) => (
+          {(editorialImages.length > 0 ? editorialImages.slice(0, 4) : [model1, model2, model3]).slice(0, 4).map((img, i) => (
             <Link key={i} to="/shop" className="block overflow-hidden group relative">
               <div className="aspect-[3/4] overflow-hidden">
                 <img src={img} alt={`Collection ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
@@ -122,25 +122,32 @@ const Index = () => {
             <h2 className="text-2xl md:text-4xl font-heading font-semibold text-foreground">Shop by Category</h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-            {(categories.length > 0 ? categories : [{ id: "1", name: "AGBADA" }, { id: "2", name: "BUSINESS SUIT" }, { id: "3", name: "KAFTAN" }]).map((cat, i) => {
-              const catImages = sectionImages["category_tiles"] || [];
-              const catImg = catImages[i]?.image_url || FALLBACK_CATEGORY_IMAGES[i % FALLBACK_CATEGORY_IMAGES.length];
-              return (
-                <ScrollReveal key={cat.id} animation="fade-up" delay={i * 100}>
-                  <Link to="/shop" className="group block">
-                    <div className="relative overflow-hidden aspect-[3/4] bg-muted">
-                      <img src={catImg} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-background/25 group-hover:bg-background/50 transition-all duration-500" />
-                      <div className="absolute bottom-0 left-0 right-0 p-4">
-                        <h3 className="text-foreground text-[11px] font-bold tracking-[0.3em] uppercase">{cat.name}</h3>
+          {(() => {
+            const catImages = (sectionImages["category_tiles"] || []).slice(0, 4);
+            return catImages.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+                {catImages.map((img, i) => (
+                  <ScrollReveal key={img.id} animation="fade-up" delay={i * 100}>
+                    <Link to="/shop" className="group block">
+                      <div className="relative overflow-hidden aspect-[3/4] bg-muted">
+                        <img src={img.image_url} alt={img.alt_text || "Category"} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                        <div className="absolute inset-0 bg-background/25 group-hover:bg-background/50 transition-all duration-500" />
+                        {img.alt_text && (
+                          <div className="absolute bottom-0 left-0 right-0 p-4">
+                            <h3 className="text-foreground text-[11px] font-bold tracking-[0.3em] uppercase">{img.alt_text}</h3>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  </Link>
-                </ScrollReveal>
-              );
-            })}
-          </div>
+                    </Link>
+                  </ScrollReveal>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 text-muted-foreground">
+                <p className="text-sm">No categories yet. Add items via the Admin panel → Section Images → Category Tiles.</p>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
@@ -157,7 +164,7 @@ const Index = () => {
 
           {isLoading ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[...Array(8)].map((_, i) => (
+              {[...Array(4)].map((_, i) => (
                 <div key={i} className="aspect-[3/4] bg-muted animate-pulse rounded" />
               ))}
             </div>
