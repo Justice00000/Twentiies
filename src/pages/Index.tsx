@@ -144,7 +144,7 @@ const Index = () => {
               </div>
             ) : (
               <div className="text-center py-16 text-muted-foreground">
-                <p className="text-sm">No categories yet. Add items via the Admin panel → Section Images → Category Tiles.</p>
+                <p className="text-sm">No categories yet.</p>
               </div>
             );
           })()}
@@ -209,7 +209,7 @@ const Index = () => {
             </div>
           ) : (
             <div className="text-center py-16 text-muted-foreground">
-              <p className="text-sm">No products yet. Add products via the Admin panel.</p>
+              <p className="text-sm">No products yet.</p>
             </div>
           )}
 

@@ -90,12 +90,9 @@ const Services = () => {
       </section>
 
       {/* Fabrics Section */}
-      <section className="py-24 bg-background">
+      <section className="py-24 align-item:center bg-background">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="animate-fade-up">
-              <img src={fabricsImage} alt="Premium Fabrics" className="rounded-lg shadow-xl" />
-            </div>
             <div className="space-y-6 animate-fade-up stagger-2">
               <span className="text-gold font-medium tracking-widest uppercase text-sm">
                 Premium Materials

@@ -15,7 +15,7 @@ interface GalleryImage {
 const FALLBACK_SLIDES = [
   {
     image: heroMain,
-    tagline: "EACH SUIT IS CUT TO YOUR PRECISE MEASUREMENTS AND PERFECTED BY HAND.",
+    tagline: "EVERY PIECE IS MADE TO FIT YOUR PRECISE MEASUREMENT TO GIVE A PERFECT FIT.",
   },
   {
     image: model1,
