@@ -27,9 +27,9 @@ const Footer = () => {
     <footer className="bg-secondary text-foreground">
       {/* Top section */}
       <div className="container mx-auto py-16 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center md:text-left">
           {/* Brand */}
-          <div className="space-y-5">
+          <div className="space-y-5 flex flex-col items-center md:items-start">
             <img src={logo} alt="Twentiies" className="h-16 w-auto" />
             <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
               {t("footerTagline")}
@@ -41,7 +41,7 @@ const Footer = () => {
             <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground">
               Navigation
             </h4>
-            <nav className="flex flex-col gap-2.5">
+            <nav className="flex flex-col items-center md:items-start gap-2.5">
               {quickLinks.map((link) => (
                 <Link
                   key={link.key}
@@ -59,7 +59,7 @@ const Footer = () => {
             <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground">
               {t("services")}
             </h4>
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col items-center md:items-start gap-2.5">
               {servicesList.map((service) => (
                 <span key={service} className="text-xs text-muted-foreground tracking-wide">
                   {service}
@@ -73,7 +73,7 @@ const Footer = () => {
             <h4 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground">
               {t("contactUs")}
             </h4>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col items-center md:items-start gap-3">
               <a
                 href="tel:+250792417246"
                 className="flex items-center gap-2 text-xs text-muted-foreground hover:text-gold transition-colors"

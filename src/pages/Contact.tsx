@@ -113,20 +113,22 @@ const Contact = () => {
 
             {/* Map/Visual */}
             <div className="relative animate-fade-up stagger-2">
-              <div className="aspect-square rounded-lg bg-cream flex items-center justify-center border border-border">
-                <div className="text-center p-8">
-                  <MapPin className="w-16 h-16 text-gold mx-auto mb-6" />
-                  <h3 className="font-heading text-2xl font-semibold mb-2 text-charcoal">
-                    Visit Our Studio
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    Kigali, Rwanda
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    For studio visits, please contact us first to schedule an appointment.
-                  </p>
-                </div>
+              <div className="rounded-lg overflow-hidden border border-border">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63800.33955342741!2d29.8203927!3d-1.9402778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4258ed8e797%3A0xf32b36a5411d0bc8!2sKigali%2C%20Rwanda!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                  width="100%"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Twentiies Tailored - Kigali, Rwanda"
+                  className="w-full aspect-square"
+                />
               </div>
+              <p className="text-sm text-muted-foreground mt-3 text-center">
+                For studio visits, please contact us first to schedule an appointment.
+              </p>
             </div>
           </div>
         </div>
