@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Scissors, Shirt, Palette, Heart, Users, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
-import fabricsImage from "@/assets/fabrics.jpg";
+
 
 const Services = () => {
   const services = [
@@ -92,27 +92,22 @@ const Services = () => {
       {/* Fabrics Section */}
       <section className="py-24 bg-background">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="animate-fade-up">
-              <img src={fabricsImage} alt="Premium Fabrics" className="rounded-lg shadow-xl" />
-            </div>
-            <div className="space-y-6 animate-fade-up stagger-2">
-              <span className="text-gold font-medium tracking-widest uppercase text-sm">
-                Premium Materials
-              </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-semibold">
-                Only the Finest Fabrics
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                We source premium fabrics to ensure every piece meets the highest standards.
-              </p>
-              <Link to="/order">
-                <Button variant="hero" size="lg" className="mt-4 group">
-                  Start Your Order
-                  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </div>
+          <div className="max-w-2xl mx-auto text-center space-y-6 animate-fade-up">
+            <span className="text-gold font-medium tracking-widest uppercase text-sm">
+              Premium Materials
+            </span>
+            <h2 className="text-3xl md:text-4xl font-heading font-semibold">
+              Only the Finest Fabrics
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              We source premium fabrics to ensure every piece meets the highest standards.
+            </p>
+            <Link to="/order" className="inline-block">
+              <Button variant="hero" size="lg" className="mt-4 group">
+                Start Your Order
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
