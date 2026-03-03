@@ -5,6 +5,13 @@ import heroMain from "@/assets/hero-main.jpg";
 import model1 from "@/assets/model-1.png";
 import model2 from "@/assets/model-2.png";
 
+const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov", ".avi", ".mkv"];
+
+const isVideo = (url: string) => {
+  const lower = url.toLowerCase();
+  return VIDEO_EXTENSIONS.some((ext) => lower.endsWith(ext));
+};
+
 interface GalleryImage {
   id: string;
   image_url: string;
@@ -83,11 +90,22 @@ const HeroSlideshow = () => {
           className="absolute inset-0 transition-opacity duration-700 ease-in-out"
           style={{ opacity: i === current ? 1 : 0 }}
         >
-          <img
-            src={slide.image}
-            alt={`Slide ${i + 1}`}
-            className="w-full h-full object-cover"
-          />
+          {isVideo(slide.image) ? (
+            <video
+              src={slide.image}
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <img
+              src={slide.image}
+              alt={`Slide ${i + 1}`}
+              className="w-full h-full object-cover"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
         </div>
       ))}
